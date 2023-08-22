@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.title = @"梅花易数排盘软件";
-	self.records = @[@"李华", @"王明", @"张强"];
+	self.records = @[@"李华 2020年3月25日 感情", @"王明 2019年3月25日 感情", @"张强 2018年3月25日 事业"];
 
 	// 创建uitableview
 	self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
