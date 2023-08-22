@@ -11,6 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface InputViewController : UIViewController
 
+@property (nonatomic, copy) void (^didSaveRecord)(NSString *name, NSString *date, NSString *question); // 回调属性，以便在保存数据时通知ViewController。
+
+
 @end
 
 NS_ASSUME_NONNULL_END

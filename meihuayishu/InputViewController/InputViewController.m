@@ -109,7 +109,22 @@
 }
 
 - (void)saveButtonTapped {
-	// 保存结果的逻辑
+	NSString *name = self.nameTextField.text.length > 0 ? self.nameTextField.text : @"佚名";
+	NSString *question = self.questionTextField.text.length > 0 ? self.questionTextField.text : @"一事一问";
+	NSString *date = [self getCurrentDate]; // 获取当前日期的方法
+
+	if (self.didSaveRecord) {
+		self.didSaveRecord(name, date, question);
+	}
+
+	[self.navigationController popViewControllerAnimated:YES];
+}
+
+// 获取当前日期的方法
+- (NSString *)getCurrentDate {
+	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+	[formatter setDateFormat:@"yyyy年MM月dd日"];
+	return [formatter stringFromDate:[NSDate date]];
 }
 
 - (void)shareButtonTapped {

@@ -10,7 +10,7 @@
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 @property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) NSArray *records; // 存储卦信息的数组
+@property (strong, nonatomic) NSMutableArray *records;
 @end
 
 @implementation ViewController
@@ -18,7 +18,8 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.title = @"梅花易数排盘软件";
-	self.records = @[@"李华 2020年3月25日 感情", @"王明 2019年3月25日 感情", @"张强 2018年3月25日 事业"];
+	// 存储卦信息
+	self.records = [NSMutableArray array];
 	
 	// 设置背景颜色
 	self.view.backgroundColor = [UIColor whiteColor];
@@ -64,6 +65,11 @@
 
 - (void)addNewRecord {
 	InputViewController *inputVC = [[InputViewController alloc] init];
+	inputVC.didSaveRecord = ^(NSString *name, NSString *date, NSString *question) {
+		NSString *record = [NSString stringWithFormat:@"%@ %@ %@", name, date, question];
+		[self.records addObject:record];
+		[self.tableView reloadData];
+	};
 	[self.navigationController pushViewController:inputVC animated:YES];
 }
 
