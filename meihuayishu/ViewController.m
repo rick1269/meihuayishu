@@ -7,7 +7,7 @@
 #import "ViewController.h"
 #import "InputViewController.h"
 #import "ResultViewController.h"
- 
+
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSArray *records; // 存储卦信息的数组
@@ -19,7 +19,10 @@
 	[super viewDidLoad];
 	self.title = @"梅花易数排盘软件";
 	self.records = @[@"李华 2020年3月25日 感情", @"王明 2019年3月25日 感情", @"张强 2018年3月25日 事业"];
-
+	
+	// 设置背景颜色
+	self.view.backgroundColor = [UIColor whiteColor];
+	
 	// 创建uitableview
 	self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
 	self.tableView.delegate = self;
@@ -34,7 +37,6 @@
 	UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
 	[self.view addGestureRecognizer:tapGesture]; // 点击空白处隐藏输入法
 
-	
 	// 注册UITableViewCell
 	[self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"RecordCell"];
 
@@ -72,10 +74,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RecordCell"];
-	if (!cell) {
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"RecordCell"];
-	}
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RecordCell" forIndexPath:indexPath];
 	cell.textLabel.text = self.records[indexPath.row];
 	cell.detailTextLabel.text = @"2023年7月15日"; // 示例日期
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -99,6 +98,5 @@
 - (void)hideKeyboard {
 	[self.view endEditing:YES];
 }
-
 
 @end
