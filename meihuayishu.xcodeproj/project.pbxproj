@@ -14,6 +14,9 @@
 		09B48E7E2A94DFEC00002D53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09B48E7D2A94DFEC00002D53 /* Assets.xcassets */; };
 		09B48E812A94DFEC00002D53 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09B48E7F2A94DFEC00002D53 /* LaunchScreen.storyboard */; };
 		09B48E842A94DFEC00002D53 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B48E832A94DFEC00002D53 /* main.m */; };
+		09B48E8F2A94EF7400002D53 /* InputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B48E8E2A94EF7400002D53 /* InputViewController.m */; };
+		09B48E932A94EFC000002D53 /* ResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B48E922A94EFC000002D53 /* ResultViewController.m */; };
+		09B48E952A94F12F00002D53 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 09B48E942A94F12F00002D53 /* README.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +32,11 @@
 		09B48E802A94DFEC00002D53 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		09B48E822A94DFEC00002D53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09B48E832A94DFEC00002D53 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		09B48E8D2A94EF7400002D53 /* InputViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputViewController.h; sourceTree = "<group>"; };
+		09B48E8E2A94EF7400002D53 /* InputViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputViewController.m; sourceTree = "<group>"; };
+		09B48E912A94EFC000002D53 /* ResultViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResultViewController.h; sourceTree = "<group>"; };
+		09B48E922A94EFC000002D53 /* ResultViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResultViewController.m; sourceTree = "<group>"; };
+		09B48E942A94F12F00002D53 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +53,7 @@
 		09B48E652A94DFEB00002D53 = {
 			isa = PBXGroup;
 			children = (
+				09B48E942A94F12F00002D53 /* README.txt */,
 				09B48E702A94DFEB00002D53 /* meihuayishu */,
 				09B48E6F2A94DFEB00002D53 /* Products */,
 			);
@@ -61,6 +70,8 @@
 		09B48E702A94DFEB00002D53 /* meihuayishu */ = {
 			isa = PBXGroup;
 			children = (
+				09B48E902A94EFAF00002D53 /* ResultViewController */,
+				09B48E8C2A94EF3500002D53 /* InputViewController */,
 				09B48E712A94DFEC00002D53 /* AppDelegate.h */,
 				09B48E722A94DFEC00002D53 /* AppDelegate.m */,
 				09B48E742A94DFEC00002D53 /* SceneDelegate.h */,
@@ -74,6 +85,24 @@
 				09B48E832A94DFEC00002D53 /* main.m */,
 			);
 			path = meihuayishu;
+			sourceTree = "<group>";
+		};
+		09B48E8C2A94EF3500002D53 /* InputViewController */ = {
+			isa = PBXGroup;
+			children = (
+				09B48E8D2A94EF7400002D53 /* InputViewController.h */,
+				09B48E8E2A94EF7400002D53 /* InputViewController.m */,
+			);
+			path = InputViewController;
+			sourceTree = "<group>";
+		};
+		09B48E902A94EFAF00002D53 /* ResultViewController */ = {
+			isa = PBXGroup;
+			children = (
+				09B48E912A94EFC000002D53 /* ResultViewController.h */,
+				09B48E922A94EFC000002D53 /* ResultViewController.m */,
+			);
+			path = ResultViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,6 +164,7 @@
 			files = (
 				09B48E812A94DFEC00002D53 /* LaunchScreen.storyboard in Resources */,
 				09B48E7E2A94DFEC00002D53 /* Assets.xcassets in Resources */,
+				09B48E952A94F12F00002D53 /* README.txt in Resources */,
 				09B48E7C2A94DFEC00002D53 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -149,7 +179,9 @@
 				09B48E792A94DFEC00002D53 /* ViewController.m in Sources */,
 				09B48E732A94DFEC00002D53 /* AppDelegate.m in Sources */,
 				09B48E842A94DFEC00002D53 /* main.m in Sources */,
+				09B48E8F2A94EF7400002D53 /* InputViewController.m in Sources */,
 				09B48E762A94DFEC00002D53 /* SceneDelegate.m in Sources */,
+				09B48E932A94EFC000002D53 /* ResultViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,6 +332,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -327,6 +360,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
