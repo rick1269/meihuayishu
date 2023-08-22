@@ -65,11 +65,7 @@
 
 - (void)addNewRecord {
 	InputViewController *inputVC = [[InputViewController alloc] init];
-	inputVC.didSaveRecord = ^(NSString *name, NSString *date, NSString *question) {
-		NSString *record = [NSString stringWithFormat:@"%@ %@ %@", name, date, question];
-		[self.records addObject:record];
-		[self.tableView reloadData];
-	};
+
 	[self.navigationController pushViewController:inputVC animated:YES];
 }
 
