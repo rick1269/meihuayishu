@@ -4,90 +4,145 @@ struct MeihuayishuPanSelectionView: View {
 	// 主卦的爻的状态
 	@State private var zhuGua: [Bool] = Array(repeating: false, count: 6)
 	@State private var dongYao = 0
-	@State private var showPaipanDetail = false // State to control navigation
-		
+	@State private var showPaipanDetail = false // 控制导航的状态
+	@State private var showDatePicker = false // 控制日期选择器显示与否的状态
+	@State private var selectedDate = Date() // 保存选定日期的状态
 	
 	let yaoLabels = ["初爻", "二爻", "三爻", "四爻", "五爻", "上爻"]
 	
-	
 	var body: some View {
-		VStack {
-			Text("梅花易数 指定排盘")
-				.font(.title)
-				.padding()
-			
-			HStack {
-				Text("公历")
-				Spacer()
-				Text("2024-06-29 22:43")
-			}
-			.padding()
-			
-			HStack {
-				Text("农历")
-				Spacer()
-				Text("二〇二四年五月廿四 亥时")
-			}
-			.padding()
-			
-			// 主卦状态
+		ZStack {
 			VStack {
-				ForEach((0..<6).reversed(), id: \.self) { index in
+				Text("梅花易数 指定排盘")
+					.font(.title)
+					.padding()
+				
+				VStack {
 					HStack {
-						Text(yaoLabels[index])
+						Text("公历")
+							.frame(alignment: .leading)
 						Spacer()
-						Rectangle()
-							.fill(Color.black)
-							.frame(height: 20)
+						Text(dateToString(selectedDate))
 							.onTapGesture {
-								zhuGua[index].toggle()
+								showDatePicker.toggle()
 							}
-							.overlay(
-								zhuGua[index] ? AnyView(
-									HStack {
-										Spacer()
-										Rectangle()
-											.fill(Color.white)
-											.frame(width: 10)
-										Spacer()
-									}
-								) : AnyView(EmptyView())
-							)
+							.frame(maxWidth: .infinity, alignment: .center)
+					}
+					.padding()
+					
+					// 测试
+					.onAppear {
+						// 在视图出现时输出日期到控制台
+						print(dateToString(selectedDate))
+					}
+					
+					HStack {
+						Text("农历")
 						Spacer()
-						Image(systemName: dongYao == index ? "checkmark.square.fill" : "square")
-							.foregroundColor(dongYao == index ? .green : .gray)
-							.font(.system(size: 20))
-							.onTapGesture {
-								dongYao = index
-							}
+						Text(lunarDate(from: selectedDate))
+							.frame(maxWidth: .infinity, alignment: .center) // 让文本居中对齐
 					}
 					.padding()
 				}
-			}
-			.padding()
-			.background(Color.white)
-			.cornerRadius(10)
-			.shadow(radius: 5)
-			.padding()
-			
-			Spacer()
-			
-			NavigationLink(destination: PaipanDetailView(), isActive: $showPaipanDetail) {
-				Button(action: {
-					// Handle the button action
-					print("动爻 index: \(dongYao)")
-					showPaipanDetail = true // Activate navigation
-				}) {
-					Text("立即排盘")
-						.foregroundColor(.green)
+				.padding()
+				.background(Color.white)
+				.cornerRadius(10)
+				.shadow(radius: 5)
+				.padding()
+				
+				// 主卦状态
+				VStack {
+					ForEach((0..<6).reversed(), id: \.self) { index in
+						HStack {
+							Text(yaoLabels[index])
+							Spacer()
+							Rectangle()
+								.fill(Color.black)
+								.frame(height: 20)
+								.onTapGesture {
+									zhuGua[index].toggle()
+								}
+								.overlay(
+									zhuGua[index] ? AnyView(
+										HStack {
+											Spacer()
+											Rectangle()
+												.fill(Color.white)
+												.frame(width: 10)
+											Spacer()
+										}
+									) : AnyView(EmptyView())
+								)
+							Spacer()
+							Image(systemName: dongYao == index ? "checkmark.square.fill" : "square")
+								.foregroundColor(dongYao == index ? .green : .gray)
+								.font(.system(size: 20))
+								.onTapGesture {
+									dongYao = index
+								}
+						}
 						.padding()
-						.frame(maxWidth: .infinity)
-						.background(RoundedRectangle(cornerRadius: 10).stroke(Color.green))
-						.padding()
+					}
+				}
+				.padding()
+				.background(Color.white)
+				.cornerRadius(10)
+				.shadow(radius: 5)
+				.padding()
+				
+				Spacer()
+				
+				NavigationLink(destination: PaipanDetailView(), isActive: $showPaipanDetail) {
+					Button(action: {
+						// 处理按钮点击事件
+						print("动爻 index: \(dongYao)")
+						showPaipanDetail = true // 激活导航
+					}) {
+						Text("立即排盘")
+							.foregroundColor(.green)
+							.padding()
+							.frame(maxWidth: .infinity)
+							.background(RoundedRectangle(cornerRadius: 10).stroke(Color.green))
+							.padding()
+					}
 				}
 			}
+			.padding()
+			
+			if showDatePicker {
+				Color.black.opacity(0.3)
+					.edgesIgnoringSafeArea(.all)
+					.onTapGesture {
+						showDatePicker = false
+					}
+				
+				DatePicker(
+					"",
+					selection: $selectedDate,
+					displayedComponents: [.date, .hourAndMinute]
+				)
+				.datePickerStyle(WheelDatePickerStyle())
+				.labelsHidden()
+				.frame(maxWidth: .infinity)
+				.clipped()
+				.background(Color.white)
+				.cornerRadius(10)
+				.shadow(radius: 5)
+				.padding()
+			}
 		}
-		.padding()
+	}
+	
+	func dateToString(_ date: Date) -> String {
+		let formatter = DateFormatter()
+		formatter.dateFormat = "yyyy-MM-dd HH:mm"
+		return formatter.string(from: date)
+	}
+	
+	func lunarDate(from date: Date) -> String {
+		// 农历日期转换的占位符
+		// 基于selectedDate实现农历日期转换
+		return "二〇二四年五月廿四 亥时"
 	}
 }
 
