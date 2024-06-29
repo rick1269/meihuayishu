@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		092569212C3056C000B23673 /* MeihuayishuPaipan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092569202C3056C000B23673 /* MeihuayishuPaipan.swift */; };
 		092569232C3065E700B23673 /* PaipanDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092569222C3065E700B23673 /* PaipanDetailView.swift */; };
+		092569262C30762000B23673 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092569252C30762000B23673 /* DateUtils.swift */; };
 		09C7785A2C2F313400276648 /* yixueNoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C778592C2F313400276648 /* yixueNoteApp.swift */; };
 		09C7785C2C2F313400276648 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C7785B2C2F313400276648 /* ContentView.swift */; };
 		09C7785E2C2F313500276648 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09C7785D2C2F313500276648 /* Assets.xcassets */; };
@@ -18,6 +19,7 @@
 /* Begin PBXFileReference section */
 		092569202C3056C000B23673 /* MeihuayishuPaipan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeihuayishuPaipan.swift; sourceTree = "<group>"; };
 		092569222C3065E700B23673 /* PaipanDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaipanDetailView.swift; sourceTree = "<group>"; };
+		092569252C30762000B23673 /* DateUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
 		09C778562C2F313400276648 /* yixueNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yixueNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09C778592C2F313400276648 /* yixueNoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = yixueNoteApp.swift; sourceTree = "<group>"; };
 		09C7785B2C2F313400276648 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -45,6 +47,14 @@
 			path = meihuayishu;
 			sourceTree = "<group>";
 		};
+		092569242C30759F00B23673 /* DataUtils */ = {
+			isa = PBXGroup;
+			children = (
+				092569252C30762000B23673 /* DateUtils.swift */,
+			);
+			path = DataUtils;
+			sourceTree = "<group>";
+		};
 		09C7784D2C2F313400276648 = {
 			isa = PBXGroup;
 			children = (
@@ -64,6 +74,7 @@
 		09C778582C2F313400276648 /* yixueNote */ = {
 			isa = PBXGroup;
 			children = (
+				092569242C30759F00B23673 /* DataUtils */,
 				0925691F2C3056AA00B23673 /* meihuayishu */,
 				09C778592C2F313400276648 /* yixueNoteApp.swift */,
 				09C7785B2C2F313400276648 /* ContentView.swift */,
@@ -153,6 +164,7 @@
 			files = (
 				092569232C3065E700B23673 /* PaipanDetailView.swift in Sources */,
 				092569212C3056C000B23673 /* MeihuayishuPaipan.swift in Sources */,
+				092569262C30762000B23673 /* DateUtils.swift in Sources */,
 				09C7785C2C2F313400276648 /* ContentView.swift in Sources */,
 				09C7785A2C2F313400276648 /* yixueNoteApp.swift in Sources */,
 			);
