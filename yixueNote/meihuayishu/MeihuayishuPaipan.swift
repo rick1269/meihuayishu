@@ -4,6 +4,8 @@ struct MeihuayishuPanSelectionView: View {
 	// 主卦的爻的状态
 	@State private var zhuGua: [Bool] = Array(repeating: false, count: 6)
 	@State private var dongYao = 0
+	@State private var showPaipanDetail = false // State to control navigation
+		
 	
 	let yaoLabels = ["初爻", "二爻", "三爻", "四爻", "五爻", "上爻"]
 	
@@ -70,16 +72,19 @@ struct MeihuayishuPanSelectionView: View {
 			
 			Spacer()
 			
-			Button(action: {
-				// Handle the button action
-				print("动爻 index: \(dongYao)")
-			}) {
-				Text("立即排盘")
-					.foregroundColor(.green)
-					.padding()
-					.frame(maxWidth: .infinity)
-					.background(RoundedRectangle(cornerRadius: 10).stroke(Color.green))
-					.padding()
+			NavigationLink(destination: PaipanDetailView(), isActive: $showPaipanDetail) {
+				Button(action: {
+					// Handle the button action
+					print("动爻 index: \(dongYao)")
+					showPaipanDetail = true // Activate navigation
+				}) {
+					Text("立即排盘")
+						.foregroundColor(.green)
+						.padding()
+						.frame(maxWidth: .infinity)
+						.background(RoundedRectangle(cornerRadius: 10).stroke(Color.green))
+						.padding()
+				}
 			}
 		}
 		.padding()
