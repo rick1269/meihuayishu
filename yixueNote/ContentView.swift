@@ -14,17 +14,17 @@ struct ContentView: View {
 					GridItem(.flexible(), spacing: 20),
 					GridItem(.flexible(), spacing: 20)
 				], spacing: 20) {
-					NavigationLink(destination: Text("时间排盘")) {
-						FeatureButton(title: "时间排盘")
+					NavigationLink(destination: MeihuayishuPanSelectionView()) {
+						FeatureButton(title: "梅花易数")
 					}
-					NavigationLink(destination: Text("随机排盘")) {
-						FeatureButton(title: "随机排盘")
+					NavigationLink(destination: Text("四柱八字")) {
+						FeatureButton(title: "四柱八字")
 					}
-					NavigationLink(destination: Text("报数排盘")) {
-						FeatureButton(title: "报数排盘")
+					NavigationLink(destination: Text("奇门遁甲")) {
+						FeatureButton(title: "奇门遁甲")
 					}
-					NavigationLink(destination: TimeSelectionView()) {
-						FeatureButton(title: "指定排盘")
+					NavigationLink(destination: Text("风水笔记")) {
+						FeatureButton(title: "风水笔记")
 					}
 				}
 				.padding()
