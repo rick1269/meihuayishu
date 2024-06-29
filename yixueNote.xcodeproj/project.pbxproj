@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		092569212C3056C000B23673 /* ZhidingPaipan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092569202C3056C000B23673 /* ZhidingPaipan.swift */; };
 		09C7785A2C2F313400276648 /* yixueNoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C778592C2F313400276648 /* yixueNoteApp.swift */; };
 		09C7785C2C2F313400276648 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C7785B2C2F313400276648 /* ContentView.swift */; };
 		09C7785E2C2F313500276648 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09C7785D2C2F313500276648 /* Assets.xcassets */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		092569202C3056C000B23673 /* ZhidingPaipan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZhidingPaipan.swift; sourceTree = "<group>"; };
 		09C778562C2F313400276648 /* yixueNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yixueNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09C778592C2F313400276648 /* yixueNoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = yixueNoteApp.swift; sourceTree = "<group>"; };
 		09C7785B2C2F313400276648 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -32,6 +34,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0925691F2C3056AA00B23673 /* meihuayishu */ = {
+			isa = PBXGroup;
+			children = (
+				092569202C3056C000B23673 /* ZhidingPaipan.swift */,
+			);
+			path = meihuayishu;
+			sourceTree = "<group>";
+		};
 		09C7784D2C2F313400276648 = {
 			isa = PBXGroup;
 			children = (
@@ -51,6 +61,7 @@
 		09C778582C2F313400276648 /* yixueNote */ = {
 			isa = PBXGroup;
 			children = (
+				0925691F2C3056AA00B23673 /* meihuayishu */,
 				09C778592C2F313400276648 /* yixueNoteApp.swift */,
 				09C7785B2C2F313400276648 /* ContentView.swift */,
 				09C7785D2C2F313500276648 /* Assets.xcassets */,
@@ -137,6 +148,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				092569212C3056C000B23673 /* ZhidingPaipan.swift in Sources */,
 				09C7785C2C2F313400276648 /* ContentView.swift in Sources */,
 				09C7785A2C2F313400276648 /* yixueNoteApp.swift in Sources */,
 			);

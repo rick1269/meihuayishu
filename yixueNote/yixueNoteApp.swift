@@ -1,10 +1,3 @@
-//
-//  yixueNoteApp.swift
-//  yixueNote
-//
-//  Created by rick qiu on 2024/6/29.
-//
-
 import SwiftUI
 
 @main

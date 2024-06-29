@@ -4,6 +4,10 @@ struct ContentView: View {
 	var body: some View {
 		NavigationView {
 			VStack {
+				Text("易学笔记")
+					.font(.title)
+					.padding()
+				
 				Spacer()
 				
 				LazyVGrid(columns: [
@@ -19,7 +23,7 @@ struct ContentView: View {
 					NavigationLink(destination: Text("报数排盘")) {
 						FeatureButton(title: "报数排盘")
 					}
-					NavigationLink(destination: Text("指定排盘")) {
+					NavigationLink(destination: TimeSelectionView()) {
 						FeatureButton(title: "指定排盘")
 					}
 				}
@@ -57,7 +61,6 @@ struct ContentView: View {
 				.padding()
 				.background(Color(UIColor.systemGray6))
 			}
-			.navigationTitle("梅花易数笔记")
 		}
 	}
 }
@@ -67,12 +70,10 @@ struct FeatureButton: View {
 	
 	var body: some View {
 		VStack {
-			Image(systemName: "square.fill")
-				.resizable()
-				.frame(width: 50, height: 50)
 			Text(title)
 				.font(.headline)
-				.padding(.top, 10)
+				.padding(.vertical, 10)
+				.foregroundColor(Color.black) // 设置文字颜色为黑色
 		}
 		.frame(width: UIScreen.main.bounds.width / 2.5, height: UIScreen.main.bounds.width / 2.5)
 		.background(Color.white)
