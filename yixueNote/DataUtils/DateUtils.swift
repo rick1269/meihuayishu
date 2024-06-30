@@ -9,13 +9,13 @@ class DateUtils {
 
 	static func lunarDate(from date: Date) -> String {
 		// 获取日期组件
-		let components = Calendar.current.dateComponents([.year, .month, .day], from: date)
-		guard let year = components.year, let month = components.month, let day = components.day else {
+		let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: date)
+		guard let year = components.year, let month = components.month, let day = components.day, let hour = components.hour, let minute = components.minute else {
 			return "Invalid date"
 		}
 		
-		// 调用C++函数 
-		guard let lunarDateCStr = convertToLunarDate(Int32(year), Int32(month), Int32(day)) else {
+		// 调用C++函数
+		guard let lunarDateCStr = convertToLunarDate(Int32(year), Int32(month), Int32(day), Int32(hour), Int32(minute)) else {
 			return "Conversion failed"
 		}
 		let lunarDateStr = String(cString: lunarDateCStr)
@@ -26,22 +26,57 @@ class DateUtils {
 
 
 // 自定义的时间表
+struct UserDefaultsManager {
+	static let selectedDateKey = "selectedDateKey"
+	
+	static func saveSelectedDate(_ date: Date) {
+		UserDefaults.standard.set(date, forKey: selectedDateKey)
+	}
+	
+	static func retrieveSelectedDate() -> Date? {
+		return UserDefaults.standard.object(forKey: selectedDateKey) as? Date
+	}
+}
+
+// Custom date picker view
 struct CustomDatePicker: View {
 	@Binding var selectedDate: Date
 	@Binding var showDatePicker: Bool
-
+	
 	let years = Array(1900...2100)
 	let months = Array(1...12)
 	let days = Array(1...31)
 	let hours = Array(0...23)
 	let minutes = Array(0...59)
 	
-	@State private var selectedYear: Int = Calendar.current.component(.year, from: Date())
-	@State private var selectedMonth: Int = Calendar.current.component(.month, from: Date())
-	@State private var selectedDay: Int = Calendar.current.component(.day, from: Date())
-	@State private var selectedHour: Int = Calendar.current.component(.hour, from: Date())
-	@State private var selectedMinute: Int = Calendar.current.component(.minute, from: Date())
-
+	@State private var selectedYear: Int
+	@State private var selectedMonth: Int
+	@State private var selectedDay: Int
+	@State private var selectedHour: Int
+	@State private var selectedMinute: Int
+	
+	init(selectedDate: Binding<Date>, showDatePicker: Binding<Bool>) {
+		self._selectedDate = selectedDate
+		self._showDatePicker = showDatePicker
+		
+		// Retrieve the last selected date from UserDefaults, or use current date as fallback
+		if let lastSelectedDate = UserDefaultsManager.retrieveSelectedDate() {
+			let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: lastSelectedDate)
+			self._selectedYear = State(initialValue: dateComponents.year ?? Calendar.current.component(.year, from: Date()))
+			self._selectedMonth = State(initialValue: dateComponents.month ?? Calendar.current.component(.month, from: Date()))
+			self._selectedDay = State(initialValue: dateComponents.day ?? Calendar.current.component(.day, from: Date()))
+			self._selectedHour = State(initialValue: dateComponents.hour ?? Calendar.current.component(.hour, from: Date()))
+			self._selectedMinute = State(initialValue: dateComponents.minute ?? Calendar.current.component(.minute, from: Date()))
+		} else {
+			let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: Date())
+			self._selectedYear = State(initialValue: dateComponents.year ?? Calendar.current.component(.year, from: Date()))
+			self._selectedMonth = State(initialValue: dateComponents.month ?? Calendar.current.component(.month, from: Date()))
+			self._selectedDay = State(initialValue: dateComponents.day ?? Calendar.current.component(.day, from: Date()))
+			self._selectedHour = State(initialValue: dateComponents.hour ?? Calendar.current.component(.hour, from: Date()))
+			self._selectedMinute = State(initialValue: dateComponents.minute ?? Calendar.current.component(.minute, from: Date()))
+		}
+	}
+	
 	var body: some View {
 		VStack {
 			HStack {
@@ -53,12 +88,13 @@ struct CustomDatePicker: View {
 					let components = DateComponents(year: selectedYear, month: selectedMonth, day: selectedDay, hour: selectedHour, minute: selectedMinute)
 					if let newDate = Calendar.current.date(from: components) {
 						selectedDate = newDate
+						UserDefaultsManager.saveSelectedDate(newDate) // Save the selected date
 					}
 					showDatePicker = false
 				}
 			}
 			.padding()
-
+			
 			HStack(spacing: 0) {
 				Picker("Year", selection: $selectedYear) {
 					ForEach(years, id: \.self) { year in
