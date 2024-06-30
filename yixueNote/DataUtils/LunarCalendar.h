@@ -5,8 +5,7 @@
 extern "C" {
 #endif
 
-void gregorian_to_lunar(int year, int month, int day);
-const char* convertToLunarDate(int year, int month, int day);
+const char* convertToLunarDate(int year, int month, int day, int hour, int minute);
 
 #ifdef __cplusplus
 }
