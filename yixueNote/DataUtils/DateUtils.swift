@@ -25,7 +25,7 @@ class DateUtils {
 }
 
 
-// 自定义的时间表
+// 自定义时间表
 struct UserDefaultsManager {
 	static let selectedDateKey = "selectedDateKey"
 	
@@ -36,9 +36,12 @@ struct UserDefaultsManager {
 	static func retrieveSelectedDate() -> Date? {
 		return UserDefaults.standard.object(forKey: selectedDateKey) as? Date
 	}
+	
+	static func clearSelectedDate() {
+		UserDefaults.standard.removeObject(forKey: selectedDateKey)
+	}
 }
-
-// Custom date picker view
+ 
 struct CustomDatePicker: View {
 	@Binding var selectedDate: Date
 	@Binding var showDatePicker: Bool
@@ -59,7 +62,6 @@ struct CustomDatePicker: View {
 		self._selectedDate = selectedDate
 		self._showDatePicker = showDatePicker
 		
-		// Retrieve the last selected date from UserDefaults, or use current date as fallback
 		if let lastSelectedDate = UserDefaultsManager.retrieveSelectedDate() {
 			let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: lastSelectedDate)
 			self._selectedYear = State(initialValue: dateComponents.year ?? Calendar.current.component(.year, from: Date()))
@@ -145,6 +147,11 @@ struct CustomDatePicker: View {
 			.shadow(radius: 5)
 		}
 		.padding()
+		.onAppear {
+			// Clear selected date when appearing if needed (reset to current time)
+			UserDefaultsManager.clearSelectedDate()
+		}
 	}
 }
+
 
