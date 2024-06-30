@@ -8,8 +8,19 @@ class DateUtils {
 	}
 
 	static func lunarDate(from date: Date) -> String {
-		// 农历日期转换的占位符，可以根据实际需求实现
-		return "二〇二四年五月廿四 亥时"
+		// 获取日期组件
+		let components = Calendar.current.dateComponents([.year, .month, .day], from: date)
+		guard let year = components.year, let month = components.month, let day = components.day else {
+			return "Invalid date"
+		}
+		
+		// 调用C++函数 
+		guard let lunarDateCStr = convertToLunarDate(Int32(year), Int32(month), Int32(day)) else {
+			return "Conversion failed"
+		}
+		let lunarDateStr = String(cString: lunarDateCStr)
+		
+		return lunarDateStr
 	}
 }
 

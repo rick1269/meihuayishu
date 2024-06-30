@@ -10,6 +10,7 @@
 		092569212C3056C000B23673 /* MeihuayishuPaipan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092569202C3056C000B23673 /* MeihuayishuPaipan.swift */; };
 		092569232C3065E700B23673 /* PaipanDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092569222C3065E700B23673 /* PaipanDetailView.swift */; };
 		092569262C30762000B23673 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092569252C30762000B23673 /* DateUtils.swift */; };
+		0925692A2C307D5900B23673 /* LunarCalendar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092569282C307D5900B23673 /* LunarCalendar.cpp */; };
 		09C7785A2C2F313400276648 /* yixueNoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C778592C2F313400276648 /* yixueNoteApp.swift */; };
 		09C7785C2C2F313400276648 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C7785B2C2F313400276648 /* ContentView.swift */; };
 		09C7785E2C2F313500276648 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09C7785D2C2F313500276648 /* Assets.xcassets */; };
@@ -20,6 +21,9 @@
 		092569202C3056C000B23673 /* MeihuayishuPaipan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeihuayishuPaipan.swift; sourceTree = "<group>"; };
 		092569222C3065E700B23673 /* PaipanDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaipanDetailView.swift; sourceTree = "<group>"; };
 		092569252C30762000B23673 /* DateUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
+		092569272C307D5900B23673 /* yixueNote-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "yixueNote-Bridging-Header.h"; sourceTree = "<group>"; };
+		092569282C307D5900B23673 /* LunarCalendar.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LunarCalendar.cpp; sourceTree = "<group>"; };
+		092569292C307D5900B23673 /* LunarCalendar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LunarCalendar.h; sourceTree = "<group>"; };
 		09C778562C2F313400276648 /* yixueNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yixueNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09C778592C2F313400276648 /* yixueNoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = yixueNoteApp.swift; sourceTree = "<group>"; };
 		09C7785B2C2F313400276648 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -51,6 +55,9 @@
 			isa = PBXGroup;
 			children = (
 				092569252C30762000B23673 /* DateUtils.swift */,
+				092569282C307D5900B23673 /* LunarCalendar.cpp */,
+				092569292C307D5900B23673 /* LunarCalendar.h */,
+				092569272C307D5900B23673 /* yixueNote-Bridging-Header.h */,
 			);
 			path = DataUtils;
 			sourceTree = "<group>";
@@ -124,6 +131,7 @@
 				TargetAttributes = {
 					09C778552C2F313400276648 = {
 						CreatedOnToolsVersion = 14.3;
+						LastSwiftMigration = 1540;
 					};
 				};
 			};
@@ -164,6 +172,7 @@
 			files = (
 				092569232C3065E700B23673 /* PaipanDetailView.swift in Sources */,
 				092569212C3056C000B23673 /* MeihuayishuPaipan.swift in Sources */,
+				0925692A2C307D5900B23673 /* LunarCalendar.cpp in Sources */,
 				092569262C30762000B23673 /* DateUtils.swift in Sources */,
 				09C7785C2C2F313400276648 /* ContentView.swift in Sources */,
 				09C7785A2C2F313400276648 /* yixueNoteApp.swift in Sources */,
@@ -292,6 +301,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"yixueNote/Preview Content\"";
@@ -311,6 +321,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.meitu.macdemo.yixueNote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "yixueNote/DataUtils/yixueNote-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -321,6 +333,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"yixueNote/Preview Content\"";
@@ -340,6 +353,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.meitu.macdemo.yixueNote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "yixueNote/DataUtils/yixueNote-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
