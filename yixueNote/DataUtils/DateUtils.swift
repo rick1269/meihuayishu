@@ -20,6 +20,7 @@ class DateUtils {
 		}
 		let lunarDateStr = String(cString: lunarDateCStr)
 		
+		print("农历日期: \(lunarDateStr)")
 		return lunarDateStr
 	}
 }
