@@ -413,6 +413,17 @@ int lunarData::getOffsetDays(int start_y, int start_m, int start_d, int y, int m
 	return offsetDay;
 }
 
+// 获取时辰
+int lunarData::getShiChen(int hour, int minute) {
+	printf("hour:%d, minute:%d\n", hour, minute);
+
+	int currentTime = static_cast<int>((hour + 1) / 2); // 每个时辰对应的时间戳
+	if (currentTime == 12) currentTime = 0;
+
+	printf("currentTime:%d\n", currentTime);
+	return currentTime;
+}
+
 /**
  * @brief 传入阳历年月日获得详细的公历、农历object信息 <=>JSON
  * @param y  solar year
@@ -421,7 +432,7 @@ int lunarData::getOffsetDays(int start_y, int start_m, int start_d, int y, int m
  */
 bool lunarData::updataSolar2lunar(int y, int m, int d, int hour, int minute) { 
 	//参数区间1900.1.31~2100.12.31 
-	m_data.reset();
+//	m_data.reset();
 	
 	//年份限定、上限
 	if(y<1900 || y>2100) {
@@ -542,35 +553,35 @@ bool lunarData::updataSolar2lunar(int y, int m, int d, int hour, int minute) {
 		isToday = false;
 	}
 
-	// 更新m_data所有的参数
-	m_data.cYear = y;
-	m_data.cMonth = m;
-	m_data.cDay = d;
-	m_data.cHour = hour;
-	m_data.cMinute = minute;
-
-	m_data.lYear = lYear;
-	m_data.lMonth = lMonth;
-	m_data.lDay = lDay;
-
-	m_data.gzYear = gzYear;
-	m_data.gzMonth = gzMonth;
-	m_data.gzDay = gzDay;
-
-	m_data.Animal = Animal;
-	m_data.IMonthCn = IMonthCn;
-	m_data.IDayCn = IDayCn;
-
-	m_data.isLeap = isLeap;
-	m_data.leap = leap;
-
-	m_data.isTerm = isTerm;
-	m_data.Term = Term;
-
-	m_data.cWeek = cWeek;
-	m_data.nWeek = nWeek;
-
-	m_data.isToday = isToday;
+//	// 更新m_data所有的参数
+//	m_data.cYear = y;
+//	m_data.cMonth = m;
+//	m_data.cDay = d;
+//	m_data.cHour = hour;
+//	m_data.cMinute = minute;
+//
+//	m_data.lYear = lYear;
+//	m_data.lMonth = lMonth;
+//	m_data.lDay = lDay;
+//
+//	m_data.gzYear = gzYear;
+//	m_data.gzMonth = gzMonth;
+//	m_data.gzDay = gzDay;
+//
+//	m_data.Animal = Animal;
+//	m_data.IMonthCn = IMonthCn;
+//	m_data.IDayCn = IDayCn;
+//
+//	m_data.isLeap = isLeap;
+//	m_data.leap = leap;
+//
+//	m_data.isTerm = isTerm;
+//	m_data.Term = Term;
+//
+//	m_data.cWeek = cWeek;
+//	m_data.nWeek = nWeek;
+//
+//	m_data.isToday = isToday;
 
 	printf("公历:%d年%d月%d日\n", y, m, d);
 	printf("农历:%d年%d月%d日\n", lYear, lMonth, lDay);
@@ -583,6 +594,106 @@ bool lunarData::updataSolar2lunar(int y, int m, int d, int hour, int minute) {
 
 
 	return true;
+}
+
+
+/// 获取农历时间
+/// @param y 年
+/// @param m 月
+/// @param d 日
+/// @param hour 时
+/// @param minute 分
+const char* lunarData::getLunarData(int y, int m, int d, int hour, int minute){
+	printf("公历:%d年%d月%d日\n", y, m, d);
+	//年份限定、上限
+	if(y<1900 || y>2100) {
+		printf("年份超出范围(1900-2100)");
+		return "";// undefined转换为数字变为NaN
+	}
+
+	//公历传参最下限
+	if(y==1900&&m==1&&d<31) {
+		printf("日期超出范围(1900.1.31)");
+		return "";
+	}
+	
+	int i, temp=0;
+	
+	// y年m月d日距离1900.1.31多少时间
+	int offsetDay = getOffsetDays(1900, 1, 31, y, m, d);
+	int offset = offsetDay;
+	
+	for(i=1900; i<2101 && offset>0; i++) {
+		temp = lYearDays(i);
+		offset -= temp;
+	}
+	if(offset<0) {
+		offset+=temp; i--;
+	}
+	
+	//农历年
+	int lYear = i;
+	int leap = leapMonth(i); //闰哪个月
+	bool isLeap = false; 
+
+	//效验闰月
+	for(i=1; i<13 && offset>0; i++) {
+		//闰月
+		if(leap>0 && i==(leap+1) && isLeap==false){
+			--i;
+			isLeap = true; temp = leapDays(lYear); //计算农历闰月天数
+		}
+		else{
+			temp = monthDays(lYear, i);//计算农历普通月天数
+		}
+		//解除闰月
+		if(isLeap==true && i==(leap+1)) { isLeap = false; }
+		offset -= temp;
+	}
+	// 闰月导致数组下标重叠取反
+	if(offset==0 && leap>0 && i==leap+1)
+	{
+		if(isLeap){
+			isLeap = false;
+		}else{
+			isLeap = true; --i;
+		}
+	}
+	if(offset<0)
+	{
+		offset += temp; --i;
+	}
+	//农历月
+	int lMonth = i;
+	//农历日
+	int lDay = offset + 1;
+	
+	// 时辰
+	int nShiChen = getShiChen(hour, minute);
+	std::string sShichen = Zhi[nShiChen] + "时";
+	
+	//返回农历时间
+	std::string str = std::to_string(lYear) + "年 " + std::to_string(lMonth) + "月 " + std::to_string(lDay) + "日 " + sShichen;
+	if(isLeap){
+		str = std::to_string(lYear) + "年 " +  "闰" + std::to_string(lMonth) + "月 " + std::to_string(lDay) + "日 " + sShichen;
+	}
+	
+	// 申请动态内存存储农历时间字符串
+	const int bufferSize = 1000;
+	char* lunarBuffer = (char*)malloc(bufferSize * sizeof(char));
+	if (lunarBuffer == nullptr) {
+		printf("内存分配失败\n");
+		return ""; // 返回空字符串表示错误
+	}
+	
+	// 构造农历时间字符串
+	sprintf(lunarBuffer, "%s", str.c_str());
+	
+	printf("%s\n", lunarBuffer); // 输出农历时间
+	
+	// 返回动态分配的内存地址，注意需要在调用者处理后释放
+	return lunarBuffer;
+	
 }
 
 } //namespace

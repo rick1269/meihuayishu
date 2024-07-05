@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-const char* convertToLunarDate(int year, int month, int day, int hour, int minute);
+const char* getLunarDate(int year, int month, int day, int hour, int minute);
 
 #ifdef __cplusplus
 }

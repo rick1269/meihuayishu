@@ -90,9 +90,9 @@ public:
 public:
 	// 更新时间信息
 	bool updataSolar2lunar(int y, int m, int d, int hour, int minute);
-	// 获取时间信息
-	DataStruct getData() {return m_data;}
 
+	// 获取农历时间
+	const char* getLunarData(int y, int m, int d, int hour, int minute);
 private:
 	int lYearDays(int y);
 	int leapMonth(int y);
@@ -106,9 +106,10 @@ private:
 	std::string toChinaDay(int d);
 	std::string getAnimal(int y);
 	int getOffsetDays(int start_y, int start_m, int start_d, int y, int m, int d);
-
+	int getShiChen(int hour, int minute);
+	
 private:
-	DataStruct m_data;
+	
 };
 } // namespace
 
