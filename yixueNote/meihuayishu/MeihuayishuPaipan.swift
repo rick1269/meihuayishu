@@ -7,6 +7,7 @@ struct MeihuayishuPanSelectionView: View {
 	@State private var showPaipanDetail = false // 控制导航的状态
 	@State private var showDatePicker = false // 控制日期选择器显示与否的状态
 	@State private var selectedDate = Date() // 保存选定日期的状态
+	@State private var selectedLunarDate = String() // 保存选定日期的农历时间
 	
 	let yaoLabels = ["初爻", "二爻", "三爻", "四爻", "五爻", "上爻"]
 	
@@ -27,13 +28,19 @@ struct MeihuayishuPanSelectionView: View {
 								showDatePicker.toggle()
 							}
 							.frame(maxWidth: .infinity, alignment: .center)
+							.onAppear {
+								updateLunarDate() // 初始加载时更新农历日期
+							}
+							.onChange(of: selectedDate) { _ in
+								updateLunarDate() // 公历日期变化时更新农历日期
+							}
 					}
 					.padding()
 					
 					HStack {
 						Text("农历")
 						Spacer()
-						Text(DateUtils.lunarDate(from: selectedDate))
+						Text(selectedLunarDate)
 							.frame(maxWidth: .infinity, alignment: .center) // 让文本居中对齐
 					}
 					.padding()
@@ -86,20 +93,24 @@ struct MeihuayishuPanSelectionView: View {
 				
 				Spacer()
 				
-				NavigationLink(destination: PaipanDetailView(), isActive: $showPaipanDetail) {
-					Button(action: {
-						// 处理按钮点击事件
-						print("动爻 index: \(dongYao)")
-						showPaipanDetail = true // 激活导航
-					}) {
-						Text("立即排盘")
-							.foregroundColor(.green)
-							.padding()
-							.frame(maxWidth: .infinity)
-							.background(RoundedRectangle(cornerRadius: 10).stroke(Color.green))
-							.padding()
-					}
-				}
+				NavigationLink(
+					destination:
+						PaipanDetailView(selectedDate: selectedDate),
+					isActive:
+						$showPaipanDetail) {
+							Button(action: {
+								// 处理按钮点击事件
+								print("动爻 index: \(dongYao)")
+								showPaipanDetail = true // 激活导航
+							}) {
+								Text("立即排盘")
+									.foregroundColor(.green)
+									.padding()
+									.frame(maxWidth: .infinity)
+									.background(RoundedRectangle(cornerRadius: 10).stroke(Color.green))
+									.padding()
+							}
+						}
 			}
 			.padding()
 			
@@ -119,6 +130,11 @@ struct MeihuayishuPanSelectionView: View {
 					.padding()
 			}
 		}
+	}
+	
+	// 根据阳历计算农历
+	private func updateLunarDate() {
+		selectedLunarDate = DateUtils.lunarDate(from: selectedDate)
 	}
 }
 

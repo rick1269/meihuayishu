@@ -3,17 +3,21 @@ import SwiftUI
 struct PaipanDetailView: View {
 	@Environment(\.presentationMode) var presentationMode // 获取当前视图的呈现模式
 	
+	var selectedDate: Date // 接收从梅花易数界面传递过来的公历时间
+	
 	var body: some View {
 		ScrollView {
 			VStack {
 				Text("指定排盘")
 					.font(.title)
 					.padding()
+					.frame(maxWidth: .infinity, alignment: .center)
 				
 				HStack {
 					Text("公历")
 					Spacer()
-					Text("2024年06月29日 22:43")
+					Text(DateUtils.dateToString(selectedDate))
+						.frame(maxWidth: .infinity, alignment: .center)
 				}
 				.padding()
 				
@@ -21,6 +25,7 @@ struct PaipanDetailView: View {
 					Text("农历")
 					Spacer()
 					Text("二〇二四年五月廿四 亥时")
+						.frame(maxWidth: .infinity, alignment: .center)
 				}
 				.padding()
 				
@@ -125,7 +130,7 @@ struct HexagramView: View {
 
 struct PaipanDetailView_Previews: PreviewProvider {
 	static var previews: some View {
-		PaipanDetailView()
+		PaipanDetailView(selectedDate: Date())
 	}
 }
 
