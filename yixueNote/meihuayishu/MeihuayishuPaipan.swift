@@ -130,6 +130,9 @@ struct MeihuayishuPanSelectionView: View {
 					.padding()
 			}
 		}
+		.onDisappear {
+			UserDefaultsManager.clearSelectedDate() // 在界面消失时清除选定日期
+		}
 	}
 	
 	// 根据阳历计算农历
