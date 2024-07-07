@@ -1,37 +1,5 @@
 import SwiftUI
 
-struct LunarDateSwift {
-	var cYear: Int // 公历年
-	var cMonth: Int // 公历月
-	var cDay: Int // 公历日
-	var cHour: Int // 公历时
-	var cMinute: Int // 公历分
-	
-	var lYear: Int // 阴历年
-	var lMonth: Int // 阴历月
-	var lDay: Int // 阴历日
-	
-	var gzYear: String // 干支年
-	var gzMonth: String // 干支月
-	var gzDay: String // 干支日
-	
-	var animal: String // 生肖
-	var iMonthCn: String // 阴历月中文
-	var iDayCn: String // 阴历日中文
-	
-	var isLeap: Int // 是否是闰月
-	var leap: Int // 闰月是哪个月
-	
-	var isTerm: Int // 是否是节气
-	var term: String // 节气中文
-	
-	var nWeek: Int // 星期几
-	var cWeek: String // 星期几中文
-	
-	var isToday: Int // 是否是今天
-}
-
-
 class DateUtils {
 	static func dateToString(_ date: Date) -> String {
 		let formatter = DateFormatter()

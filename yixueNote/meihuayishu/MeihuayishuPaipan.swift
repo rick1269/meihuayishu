@@ -8,8 +8,6 @@ struct MeihuayishuPanSelectionView: View {
 	@State private var selectedDate = Date()
 	@State private var selectedLunarDate = String()
 	
-	let yaoLabels = ["初爻", "二爻", "三爻", "四爻", "五爻", "上爻"]
-	
 	var body: some View {
 		ZStack {
 			VStack {
@@ -17,67 +15,22 @@ struct MeihuayishuPanSelectionView: View {
 					.font(.title)
 					.padding()
 				
-				// 日期选择
+				// 日期选择模块
 				DatePickerSection(selectedDate: $selectedDate, selectedLunarDate: $selectedLunarDate, showDatePicker: $showDatePicker)
 
-				// 主卦状态
-				VStack {
-					ForEach((0..<6).reversed(), id: \.self) { index in
-						HStack {
-							Text(yaoLabels[index])
-							Spacer()
-							Rectangle()
-								.fill(Color.black)
-								.frame(height: 20)
-								.onTapGesture {
-									zhuGua[index].toggle()
-								}
-								.overlay(
-									zhuGua[index] ? AnyView(
-										HStack {
-											Spacer()
-											Rectangle()
-												.fill(Color.white)
-												.frame(width: 10)
-											Spacer()
-										}
-									) : AnyView(EmptyView())
-								)
-							Spacer()
-							Image(systemName: dongYao == index ? "checkmark.square.fill" : "square")
-								.foregroundColor(dongYao == index ? .green : .gray)
-								.font(.system(size: 20))
-								.onTapGesture {
-									dongYao = index
-								}
-						}
-						.padding()
-					}
-				}
-				.padding()
-				.background(Color.white)
-				.cornerRadius(10)
-				.shadow(radius: 5)
-				.padding()
-				
+				// 主卦状态模块
+				ZhuGuaView(zhuGua: $zhuGua, dongYao: $dongYao)
+								
 				Spacer()
 				
-				NavigationLink(
-					destination: PaipanDetailView(selectedDate: selectedDate, selectedLunarDate: selectedLunarDate, zhuGua: zhuGua, dongYao: dongYao),
-					isActive: $showPaipanDetail
-				) {
-					Button(action: {
-						print("动爻 index: \(dongYao)")
-						showPaipanDetail = true
-					}) {
-						Text("立即排盘")
-							.foregroundColor(.green)
-							.padding()
-							.frame(maxWidth: .infinity)
-							.background(RoundedRectangle(cornerRadius: 10).stroke(Color.green))
-							.padding()
-					}
-				}
+				// 排盘细节界面入口模块
+				PaipanNavigationLink(
+									showPaipanDetail: $showPaipanDetail,
+									selectedDate: selectedDate,
+									selectedLunarDate: selectedLunarDate,
+									zhuGua: zhuGua,
+									dongYao: dongYao
+								)
 			}
 			.padding()
 			
@@ -104,6 +57,7 @@ struct MeihuayishuPanSelectionView: View {
 }
 
 
+/// 时间选择模块
 struct DatePickerSection: View {
 	@Binding var selectedDate: Date
 	@Binding var selectedLunarDate: String
@@ -276,6 +230,83 @@ struct CustomDatePicker: View {
 		.onAppear {
 			// Clear selected date when appearing if needed (reset to current time)
 			UserDefaultsManager.clearSelectedDate()
+		}
+	}
+}
+
+/// 主卦视图模块
+struct ZhuGuaView: View {
+	@Binding var zhuGua: [Bool]
+	@Binding var dongYao: Int
+	let yaoLabels = ["初爻", "二爻", "三爻", "四爻", "五爻", "上爻"]
+	
+	var body: some View {
+		VStack {
+			ForEach((0..<6).reversed(), id: \.self) { index in
+				HStack {
+					Text(yaoLabels[index])
+					Spacer()
+					Rectangle()
+						.fill(Color.black)
+						.frame(height: 20)
+						.onTapGesture {
+							zhuGua[index].toggle()
+						}
+						.overlay(
+							zhuGua[index] ? AnyView(
+								HStack {
+									Spacer()
+									Rectangle()
+										.fill(Color.white)
+										.frame(width: 10)
+									Spacer()
+								}
+							) : AnyView(EmptyView())
+						)
+					Spacer()
+					Image(systemName: dongYao == index ? "checkmark.square.fill" : "square")
+						.foregroundColor(dongYao == index ? .green : .gray)
+						.font(.system(size: 20))
+						.onTapGesture {
+							dongYao = index
+						}
+				}
+				.padding()
+			}
+		}
+		.padding()
+		.background(Color.white)
+		.cornerRadius(10)
+		.shadow(radius: 5)
+		.padding()
+	}
+}
+
+
+/// 排盘细节入口模块
+struct PaipanNavigationLink: View {
+	@Binding var showPaipanDetail: Bool
+	var selectedDate: Date
+	var selectedLunarDate: String
+	var zhuGua: [Bool]
+	var dongYao: Int
+	
+	var body: some View {
+		NavigationLink(
+			destination: PaipanDetailView(selectedDate: selectedDate, selectedLunarDate: selectedLunarDate, zhuGua: zhuGua, dongYao: dongYao),
+			isActive: $showPaipanDetail
+		) {
+			Button(action: {
+				print("动爻 index: \(dongYao)")
+				showPaipanDetail = true
+			}) {
+				Text("立即排盘")
+					.foregroundColor(.green)
+					.padding()
+					.frame(maxWidth: .infinity)
+					.background(RoundedRectangle(cornerRadius: 10).stroke(Color.green))
+					.padding()
+			}
 		}
 	}
 }
