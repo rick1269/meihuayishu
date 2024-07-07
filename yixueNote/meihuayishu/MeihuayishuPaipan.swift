@@ -95,7 +95,7 @@ struct MeihuayishuPanSelectionView: View {
 				
 				NavigationLink(
 					destination:
-						PaipanDetailView(selectedDate: selectedDate),
+						PaipanDetailView(selectedDate: selectedDate, selectedLunarDate: selectedLunarDate, zhuGua: zhuGua, dongYao: dongYao),
 					isActive:
 						$showPaipanDetail) {
 							Button(action: {

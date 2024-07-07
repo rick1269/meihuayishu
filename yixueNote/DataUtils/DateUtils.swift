@@ -45,18 +45,18 @@ class DateUtils {
 		guard let year = components.year, let month = components.month, let day = components.day, let hour = components.hour, let minute = components.minute else {
 			return "Invalid date"
 		}
-		print("year: \(year), month: \(month), day: \(day), hour: \(hour), minute: \(minute)")
+//		print("year: \(year), month: \(month), day: \(day), hour: \(hour), minute: \(minute)")
 		
 		// 调用C++函数获取农历日期
 		guard let lunarDateCStr = getLunarDate(Int32(year), Int32(month), Int32(day), Int32(hour), Int32(minute)) else {
 			return "Conversion failed"
-		}
+		} 
 		defer {
 			free(UnsafeMutablePointer(mutating: lunarDateCStr))
 		}
 		let lunarDateStr = String(cString: lunarDateCStr)
 		
-		print(" lunarDate : \(lunarDateStr)")
+//		print(" lunarDate : \(lunarDateStr)")
 		return lunarDateStr
 	}
 }

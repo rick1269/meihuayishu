@@ -2,8 +2,27 @@ import SwiftUI
 
 struct PaipanDetailView: View {
 	@Environment(\.presentationMode) var presentationMode // 获取当前视图的呈现模式
-	
-	var selectedDate: Date // 接收从梅花易数界面传递过来的公历时间
+	 
+	var selectedDate: Date
+	var selectedLunarDate: String
+	var zhuGua: [Bool]
+	var dongYao: Int
+
+	@State private var huGua: [Bool] = Array(repeating: false, count: 6)
+	@State private var bianGua: [Bool] = Array(repeating: false, count: 6)
+
+	@State private var NianGanZhi: String = ""
+	@State private var YueGanZhi: String = ""
+	@State private var RiGanZhi: String = ""
+	@State private var ShiGanZhi: String = ""
+	@State private var RiKongWang: String = ""
+
+	init(selectedDate: Date, selectedLunarDate: String, zhuGua: [Bool], dongYao: Int) {
+		self.selectedDate = selectedDate
+		self.selectedLunarDate = selectedLunarDate
+		self.zhuGua = zhuGua
+		self.dongYao = dongYao
+	}
 	
 	var body: some View {
 		ScrollView {
@@ -24,7 +43,7 @@ struct PaipanDetailView: View {
 				HStack {
 					Text("农历")
 					Spacer()
-					Text("二〇二四年五月廿四 亥时")
+					Text(selectedLunarDate)
 						.frame(maxWidth: .infinity, alignment: .center)
 				}
 				.padding()
@@ -130,7 +149,7 @@ struct HexagramView: View {
 
 struct PaipanDetailView_Previews: PreviewProvider {
 	static var previews: some View {
-		PaipanDetailView(selectedDate: Date())
+		PaipanDetailView(selectedDate: Date(), selectedLunarDate: String(), zhuGua: [true, true, true, true, true, true], dongYao: 0)
 	}
 }
 
