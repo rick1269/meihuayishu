@@ -102,9 +102,8 @@ struct GanZhiView: View {
 		}
 		
 		// 计算日空亡
-		ganZhiModel.riKongWang = "[戌亥空]"
-		
-		
+		var riKongWang = DateUtils.RiKongWang(from: selectedDate)
+		ganZhiModel.riKongWang = String(riKongWang)
 	}
 	var body: some View {
 		HStack {

@@ -819,8 +819,8 @@ const char* lunarData::getSiGangGanZhi(int y, int m, int d, int hour, int minute
 	} else {
 		printf("error riGanStr:%s\n", riGanStr.c_str());
 	}
-	printf("nZiGan:%d\n", nZiGan);
-	printf("nShiZhi:%d\n", nShiZhi);
+//	printf("nZiGan:%d\n", nZiGan);
+//	printf("nShiZhi:%d\n", nShiZhi);
 	
 	// 计算时干
 	int nShiGan = nZiGan + nShiZhi;
@@ -920,7 +920,6 @@ const char* lunarData::getRiKongWang(int y, int m, int d, int hour, int minute){
 	
 	// 当月的两个节气
 	int firstNode  = getTerm(y,(m*2-1));//返回当月「节」为几日开始
-	int secondNode = getTerm(y,(m*2));//返回当月「节」为几日开始
 	
 	// 依据12节气修正干支月
 	std::string gzMonth = toGanZhi((y-1900)*12+m+11);
@@ -932,15 +931,21 @@ const char* lunarData::getRiKongWang(int y, int m, int d, int hour, int minute){
 	int dayCyclical = getOffsetDays(1900, 2, 20, y, m, d);
 	std::string gzDay = toGanZhi(dayCyclical);
 	
-	// 时辰
-	int nShiChen = getShiChen(hour, minute);
-	std::string gzShi = Zhi[nShiChen] + "时";
+	// 地支-天干+1，如果地支小于天干，地支加12再减天干。
+	int nRiGan = dayCyclical%10 + 1;
+	int nRiZhi = dayCyclical%12 + 1;
+	if(nRiZhi < nRiGan) {
+		nRiZhi += 12;
+	}
+//	printf("nRiGan:%d, nRiZhi:%d\n", nRiGan, nRiZhi);
+	int nXunShou = nRiZhi - nRiGan + 1;
+	int nKongWang_0 = nXunShou - 3 < 0 ? nXunShou - 3 + 12 : nXunShou - 3;
+	int nKongWang_1 = nXunShou - 2< 0 ? nXunShou - 2 + 12 : nXunShou - 2;
 	
-	// 时干
-	
+//	printf("nXunShou:%d, nKongWang_0:%d, nKongWang_1:%d\n", nXunShou, nKongWang_0, nKongWang_1);
 	
 	// 返回
-	std::string str = gzYear + " " + gzMonth + " " + gzDay + " " + gzShi;
+	std::string str = "[" + Zhi[nKongWang_0] + Zhi[nKongWang_1] + "空]";
 	
 	const int bufferSize = 100;
 	char* buffer = (char*)malloc(bufferSize * sizeof(char));
@@ -952,7 +957,7 @@ const char* lunarData::getRiKongWang(int y, int m, int d, int hour, int minute){
 	// 构造农历时间字符串
 	sprintf(buffer, "%s", str.c_str());
 	
-	//	printf("%s\n", lunarBuffer); // 输出农历时间
+	printf("%s\n", buffer);  // 输出空亡信息
 	
 	// 返回动态分配的内存地址，注意需要在调用者处理后释放
 	return buffer;

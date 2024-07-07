@@ -47,6 +47,25 @@ class DateUtils {
 		//		print(" lunarDate : \(lunarDateStr)")
 		return dateStr
 	}
+	
+	// MARK: - 获取日空亡
+	static func RiKongWang(from date: Date) -> (String) {
+		// 获取日期组件
+		let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: date)
+		guard let year = components.year, let month = components.month, let day = components.day, let hour = components.hour, let minute = components.minute else {
+			return ("Invalid date")
+		}
+		guard let dateCStr = getRiKongWang(Int32(year), Int32(month), Int32(day), Int32(hour), Int32(minute)) else {
+			return "Conversion failed"
+		}
+		defer {
+			free(UnsafeMutablePointer(mutating: dateCStr))
+		}
+		let dateStr = String(cString: dateCStr)
+		
+		//		print(" lunarDate : \(lunarDateStr)")
+		return dateStr
+	}
 }
 
 
