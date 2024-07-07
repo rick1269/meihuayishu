@@ -25,8 +25,8 @@ struct PaipanDetailView: View {
 				
 				GanZhiView(selectedDate: selectedDate)
 				
-				HexagramSectionView(huGua: $huGua, bianGua: $bianGua)
-				
+				HexagramSectionView(zhuGua: zhuGua, dongYao: dongYao)
+							   
 				TextInputView(placeholder: "占问 所问之事", text: .constant(""))
 				
 				TextInputView(placeholder: "反馈 断语，分析", text: .constant(""))
@@ -131,51 +131,126 @@ struct GanZhiView: View {
 	}
 }
 
-
 struct HexagramSectionView: View {
-	@Binding var huGua: [Bool]
-	@Binding var bianGua: [Bool]
-
+	var zhuGua: [Bool]
+	var dongYao: Int
+	private var huGua: [Bool]
+	private var bianGua: [Bool]
+	
+	init(zhuGua: [Bool], dongYao: Int) {
+		self.zhuGua = zhuGua
+		self.dongYao = dongYao
+		
+		// Initialize huGua and bianGua as per zhuGua, huGua should be different
+		self.huGua = zhuGua.map { !$0 }
+		self.bianGua = zhuGua
+	}
+	
 	var body: some View {
-		HStack {
-			VStack {
-				Text("[主]")
-					.foregroundColor(.gray)
-				HexagramView()
-				Text("风火家人")
+		VStack(spacing: 20) {
+			HStack(spacing: 10) {
+				VStack {
+					Text("[主]")
+						.foregroundColor(.gray)
+					ZhuGuaHexagramView(zhuGua: zhuGua, dongYao: dongYao)
+					Text("雷水解")
+				}
+				Spacer()
+				
+				VStack {
+					Text("[互]")
+						.foregroundColor(.gray)
+					HexagramView(Gua: huGua)
+					Text("水火既济")
+				}
+				
+				Spacer()
+				
+				VStack {
+					Text("[变]")
+						.foregroundColor(.gray)
+					HexagramView(Gua: bianGua)
+					Text("雷地豫")
+				}
 			}
-			Spacer()
-			VStack {
-				Text("[互]")
-					.foregroundColor(.gray)
-				HexagramView()
-				Text("火水未济")
-			}
-			Spacer()
-			VStack {
-				Text("[变]")
-					.foregroundColor(.gray)
-				HexagramView()
-				Text("风山渐")
+			.padding()
+		}
+	}
+}
+
+struct ZhuGuaHexagramView: View {
+	var zhuGua: [Bool]
+	var dongYao: Int
+	
+	var body: some View {
+		VStack(spacing: 6) {
+			ForEach((0..<6).reversed(), id: \.self) { index in
+				HStack {
+					VStack{
+						Rectangle()
+							.fill(Color.black)
+							.frame(height: 6)
+							.frame(width:80)
+							.overlay(
+								self.zhuGua[index] ? AnyView(
+									HStack {
+										Spacer()
+										Rectangle()
+											.fill(Color.white)
+											.frame(width: 5)
+										Spacer()
+									}
+								) : AnyView(EmptyView())
+							)
+					}
+					
+					Spacer()
+					
+					VStack{
+						Image(systemName: "circle")
+							.foregroundColor(dongYao == index ? .red : .white)
+							.font(.system(size: 4))
+					}
+					
+					
+				}
+				.padding(.vertical, 5)
 			}
 		}
-		.padding()
 	}
 }
 
 struct HexagramView: View {
+	var Gua: [Bool]
+	
 	var body: some View {
-		VStack(spacing: 2) {
-			ForEach(0..<6) { _ in
+		VStack(spacing: 6) {
+			ForEach((0..<6).reversed(), id: \.self) { index in
 				HStack {
 					Rectangle()
 						.fill(Color.black)
-						.frame(height: 20)
+						.frame(height: 6)
+						.frame(width:80)
+						.overlay(
+							self.Gua[index] ? AnyView(
+								HStack {
+									Spacer()
+									Rectangle()
+										.fill(Color.white)
+										.frame(width: 5)
+									Spacer()
+								}
+							) : AnyView(EmptyView())
+						)
+					Spacer()
+						.frame(width: 10) // 这里指定空白区域的宽度
 				}
+				.padding(.vertical, 5)
 			}
 		}
 	}
 }
+
 
 struct TextInputView: View {
 	var placeholder: String
