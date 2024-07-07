@@ -22,6 +22,10 @@ struct PaipanDetailView: View {
 		self.selectedLunarDate = selectedLunarDate
 		self.zhuGua = zhuGua
 		self.dongYao = dongYao
+
+		print("selectedDate: \(selectedDate)")
+		print("selectedLunarDate: \(selectedLunarDate)")
+		
 	}
 	
 	var body: some View {

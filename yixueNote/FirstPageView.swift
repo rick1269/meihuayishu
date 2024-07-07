@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ContentView: View {
+struct  FirstPageView: View {
 	var body: some View {
 		NavigationView {
 			VStack {
@@ -82,9 +82,9 @@ struct FeatureButton: View {
 	}
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct  FirstPageView_Previews: PreviewProvider {
 	static var previews: some View {
-		ContentView()
+		 FirstPageView()
 	}
 }
 

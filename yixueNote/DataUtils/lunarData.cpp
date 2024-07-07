@@ -415,12 +415,12 @@ int lunarData::getOffsetDays(int start_y, int start_m, int start_d, int y, int m
 
 // 获取时辰
 int lunarData::getShiChen(int hour, int minute) {
-	printf("hour:%d, minute:%d\n", hour, minute);
+//	printf("hour:%d, minute:%d\n", hour, minute);
 
 	int currentTime = static_cast<int>((hour + 1) / 2); // 每个时辰对应的时间戳
 	if (currentTime == 12) currentTime = 0;
 
-	printf("currentTime:%d\n", currentTime);
+//	printf("currentTime:%d\n", currentTime);
 	return currentTime;
 }
 
@@ -583,14 +583,14 @@ bool lunarData::updataSolar2lunar(int y, int m, int d, int hour, int minute) {
 //
 //	m_data.isToday = isToday;
 
-	printf("公历:%d年%d月%d日\n", y, m, d);
-	printf("农历:%d年%d月%d日\n", lYear, lMonth, lDay);
-	printf("农历:%s%s%s\n", (isLeap?"闰":""), nStr3[lMonth-1].c_str(), "\u6708");
-	printf("干支:%s年 %s月 %s日\n", gzYear.c_str(), gzMonth.c_str(), gzDay.c_str());
-	printf("生肖:%s\n", Animal.c_str());
-	printf("节气:%s\n", isTerm?Term.c_str():"");
-	printf("周:%s\n", cWeek.c_str());
-	printf("今天:%s\n", isToday?"是":"否");
+//	printf("公历:%d年%d月%d日\n", y, m, d);
+//	printf("农历:%d年%d月%d日\n", lYear, lMonth, lDay);
+//	printf("农历:%s%s%s\n", (isLeap?"闰":""), nStr3[lMonth-1].c_str(), "\u6708");
+//	printf("干支:%s年 %s月 %s日\n", gzYear.c_str(), gzMonth.c_str(), gzDay.c_str());
+//	printf("生肖:%s\n", Animal.c_str());
+//	printf("节气:%s\n", isTerm?Term.c_str():"");
+//	printf("周:%s\n", cWeek.c_str());
+//	printf("今天:%s\n", isToday?"是":"否");
 
 
 	return true;
@@ -604,7 +604,7 @@ bool lunarData::updataSolar2lunar(int y, int m, int d, int hour, int minute) {
 /// @param hour 时
 /// @param minute 分
 const char* lunarData::getLunarData(int y, int m, int d, int hour, int minute){
-	printf("公历:%d年%d月%d日\n", y, m, d);
+//	printf("公历:%d年%d月%d日\n", y, m, d);
 	//年份限定、上限
 	if(y<1900 || y>2100) {
 		printf("年份超出范围(1900-2100)");
@@ -689,7 +689,7 @@ const char* lunarData::getLunarData(int y, int m, int d, int hour, int minute){
 	// 构造农历时间字符串
 	sprintf(lunarBuffer, "%s", str.c_str());
 	
-	printf("%s\n", lunarBuffer); // 输出农历时间
+//	printf("%s\n", lunarBuffer); // 输出农历时间
 	
 	// 返回动态分配的内存地址，注意需要在调用者处理后释放
 	return lunarBuffer;

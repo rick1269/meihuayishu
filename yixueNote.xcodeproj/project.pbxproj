@@ -13,7 +13,7 @@
 		0925692A2C307D5900B23673 /* LunarCalendar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092569282C307D5900B23673 /* LunarCalendar.cpp */; };
 		092569302C31A7A200B23673 /* lunarData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0925692E2C31A7A200B23673 /* lunarData.cpp */; };
 		09C7785A2C2F313400276648 /* yixueNoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C778592C2F313400276648 /* yixueNoteApp.swift */; };
-		09C7785C2C2F313400276648 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C7785B2C2F313400276648 /* ContentView.swift */; };
+		09C7785C2C2F313400276648 /* FirstPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C7785B2C2F313400276648 /* FirstPageView.swift */; };
 		09C7785E2C2F313500276648 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09C7785D2C2F313500276648 /* Assets.xcassets */; };
 		09C778612C2F313500276648 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09C778602C2F313500276648 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -29,7 +29,7 @@
 		0925692F2C31A7A200B23673 /* lunarData.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = lunarData.hpp; sourceTree = "<group>"; };
 		09C778562C2F313400276648 /* yixueNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yixueNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09C778592C2F313400276648 /* yixueNoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = yixueNoteApp.swift; sourceTree = "<group>"; };
-		09C7785B2C2F313400276648 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		09C7785B2C2F313400276648 /* FirstPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPageView.swift; sourceTree = "<group>"; };
 		09C7785D2C2F313500276648 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		09C778602C2F313500276648 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -89,7 +89,7 @@
 				092569242C30759F00B23673 /* DataUtils */,
 				0925691F2C3056AA00B23673 /* meihuayishu */,
 				09C778592C2F313400276648 /* yixueNoteApp.swift */,
-				09C7785B2C2F313400276648 /* ContentView.swift */,
+				09C7785B2C2F313400276648 /* FirstPageView.swift */,
 				09C7785D2C2F313500276648 /* Assets.xcassets */,
 				09C7785F2C2F313500276648 /* Preview Content */,
 			);
@@ -180,7 +180,7 @@
 				092569212C3056C000B23673 /* MeihuayishuPaipan.swift in Sources */,
 				0925692A2C307D5900B23673 /* LunarCalendar.cpp in Sources */,
 				092569262C30762000B23673 /* DateUtils.swift in Sources */,
-				09C7785C2C2F313400276648 /* ContentView.swift in Sources */,
+				09C7785C2C2F313400276648 /* FirstPageView.swift in Sources */,
 				09C7785A2C2F313400276648 /* yixueNoteApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -4,7 +4,7 @@ import SwiftUI
 struct yixueNoteApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+             FirstPageView()
         }
     }
 }
