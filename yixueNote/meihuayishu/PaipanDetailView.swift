@@ -1,33 +1,27 @@
 import SwiftUI
 
+// Model for GanZhi data
+class GanZhiModel: ObservableObject {
+	@Published var nianGanZhi: String = ""
+	@Published var yueGanZhi: String = ""
+	@Published var riGanZhi: String = ""
+	@Published var shiGanZhi: String = ""
+	@Published var riKongWang: String = ""
+}
+
 struct PaipanDetailView: View {
-	@Environment(\.presentationMode) var presentationMode // 获取当前视图的呈现模式
-	 
+	@Environment(\.presentationMode) var presentationMode
+	
 	var selectedDate: Date
 	var selectedLunarDate: String
 	var zhuGua: [Bool]
 	var dongYao: Int
 
+	@StateObject private var ganZhiModel = GanZhiModel()
+
 	@State private var huGua: [Bool] = Array(repeating: false, count: 6)
 	@State private var bianGua: [Bool] = Array(repeating: false, count: 6)
 
-	@State private var NianGanZhi: String = ""
-	@State private var YueGanZhi: String = ""
-	@State private var RiGanZhi: String = ""
-	@State private var ShiGanZhi: String = ""
-	@State private var RiKongWang: String = ""
-
-	init(selectedDate: Date, selectedLunarDate: String, zhuGua: [Bool], dongYao: Int) {
-		self.selectedDate = selectedDate
-		self.selectedLunarDate = selectedLunarDate
-		self.zhuGua = zhuGua
-		self.dongYao = dongYao
-
-		print("PaipanDetailView init selectedDate: \(selectedDate)")
-		print("PaipanDetailView init selectedLunarDate: \(selectedLunarDate)")
-		
-	}
-	
 	var body: some View {
 		ScrollView {
 			VStack {
@@ -36,82 +30,17 @@ struct PaipanDetailView: View {
 					.padding()
 					.frame(maxWidth: .infinity, alignment: .center)
 				
-				HStack {
-					Text("公历")
-					Spacer()
-					Text(DateUtils.dateToString(selectedDate))
-						.frame(maxWidth: .infinity, alignment: .center)
-				}
-				.padding()
+				DateDisplayView(title: "公历", date: DateUtils.dateToString(selectedDate))
 				
-				HStack {
-					Text("农历")
-					Spacer()
-					Text(selectedLunarDate)
-						.frame(maxWidth: .infinity, alignment: .center)
-				}
-				.padding()
+				DateDisplayView(title: "农历", date: selectedLunarDate)
 				
-				HStack {
-					VStack {
-						Text("甲")
-						Text("辰")
-					}
-					Spacer()
-					VStack {
-						Text("康")
-						Text("午")
-					}
-					Spacer()
-					VStack {
-						Text("甲")
-						Text("子")
-					}
-					Spacer()
-					VStack {
-						Text("乙")
-						Text("亥")
-					}
-					Spacer()
-					Text("[戌亥空]")
-				}
-				.padding()
+				GanZhiView(ganZhiModel: ganZhiModel)
 				
-				HStack {
-					VStack {
-						Text("[主]")
-							.foregroundColor(.gray)
-						HexagramView()
-						Text("风火家人")
-					}
-					Spacer()
-					VStack {
-						Text("[互]")
-							.foregroundColor(.gray)
-						HexagramView()
-						Text("火水未济")
-					}
-					Spacer()
-					VStack {
-						Text("[变]")
-							.foregroundColor(.gray)
-						HexagramView()
-						Text("风山渐")
-					}
-				}
-				.padding()
+				HexagramSectionView(huGua: $huGua, bianGua: $bianGua)
 				
-				TextField("占问 所问之事", text: .constant(""))
-					.padding()
-					.background(Color.gray.opacity(0.1))
-					.cornerRadius(10)
-					.padding(.horizontal)
+				TextInputView(placeholder: "占问 所问之事", text: .constant(""))
 				
-				TextField("反馈 断语，分析", text: .constant(""))
-					.padding()
-					.background(Color.gray.opacity(0.1))
-					.cornerRadius(10)
-					.padding(.horizontal)
+				TextInputView(placeholder: "反馈 断语，分析", text: .constant(""))
 				
 				Spacer()
 				
@@ -133,9 +62,88 @@ struct PaipanDetailView: View {
 			}
 			.padding()
 		}
+		.onAppear {
+			// Fetch or initialize ganZhiModel data here if needed
+		}
 	}
 }
 
+struct DateDisplayView: View {
+	var title: String
+	var date: String
+
+	var body: some View {
+		HStack {
+			Text(title)
+			Spacer()
+			Text(date)
+				.frame(maxWidth: .infinity, alignment: .center)
+		}
+		.padding()
+	}
+}
+
+struct GanZhiView: View {
+	@ObservedObject var ganZhiModel: GanZhiModel
+
+	var body: some View {
+		HStack {
+			VStack {
+				Text("甲")
+				Text(ganZhiModel.nianGanZhi)
+			}
+			Spacer()
+			VStack {
+				Text("康")
+				Text(ganZhiModel.yueGanZhi)
+			}
+			Spacer()
+			VStack {
+				Text("甲")
+				Text(ganZhiModel.riGanZhi)
+			}
+			Spacer()
+			VStack {
+				Text("乙")
+				Text(ganZhiModel.shiGanZhi)
+			}
+			Spacer()
+			Text("[戌亥空]")
+		}
+		.padding()
+	}
+}
+
+struct HexagramSectionView: View {
+	@Binding var huGua: [Bool]
+	@Binding var bianGua: [Bool]
+
+	var body: some View {
+		HStack {
+			VStack {
+				Text("[主]")
+					.foregroundColor(.gray)
+				HexagramView()
+				Text("风火家人")
+			}
+			Spacer()
+			VStack {
+				Text("[互]")
+					.foregroundColor(.gray)
+				HexagramView()
+				Text("火水未济")
+			}
+			Spacer()
+			VStack {
+				Text("[变]")
+					.foregroundColor(.gray)
+				HexagramView()
+				Text("风山渐")
+			}
+		}
+		.padding()
+	}
+}
 
 struct HexagramView: View {
 	var body: some View {
@@ -151,9 +159,23 @@ struct HexagramView: View {
 	}
 }
 
-struct PaipanDetailView_Previews: PreviewProvider {
-	static var previews: some View {
-		PaipanDetailView(selectedDate: Date(), selectedLunarDate: String(), zhuGua: [true, true, true, true, true, true], dongYao: 0)
+struct TextInputView: View {
+	var placeholder: String
+	@Binding var text: String
+
+	var body: some View {
+		TextField(placeholder, text: $text)
+			.padding()
+			.background(Color.gray.opacity(0.1))
+			.cornerRadius(10)
+			.padding(.horizontal)
 	}
 }
+
+struct PaipanDetailView_Previews: PreviewProvider {
+	static var previews: some View {
+		PaipanDetailView(selectedDate: Date(), selectedLunarDate: "", zhuGua: [true, true, true, true, true, true], dongYao: 0)
+	}
+}
+
 
