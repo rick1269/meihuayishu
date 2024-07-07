@@ -23,8 +23,8 @@ struct PaipanDetailView: View {
 		self.zhuGua = zhuGua
 		self.dongYao = dongYao
 
-		print("selectedDate: \(selectedDate)")
-		print("selectedLunarDate: \(selectedLunarDate)")
+		print("PaipanDetailView init selectedDate: \(selectedDate)")
+		print("PaipanDetailView init selectedLunarDate: \(selectedLunarDate)")
 		
 	}
 	
