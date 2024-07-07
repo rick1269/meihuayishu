@@ -1,14 +1,5 @@
 import SwiftUI
 
-// Model for GanZhi data
-class GanZhiModel: ObservableObject {
-	@Published var nianGanZhi: String = ""
-	@Published var yueGanZhi: String = ""
-	@Published var riGanZhi: String = ""
-	@Published var shiGanZhi: String = ""
-	@Published var riKongWang: String = ""
-}
-
 struct PaipanDetailView: View {
 	@Environment(\.presentationMode) var presentationMode
 	
@@ -16,8 +7,6 @@ struct PaipanDetailView: View {
 	var selectedLunarDate: String
 	var zhuGua: [Bool]
 	var dongYao: Int
-
-	@StateObject private var ganZhiModel = GanZhiModel()
 
 	@State private var huGua: [Bool] = Array(repeating: false, count: 6)
 	@State private var bianGua: [Bool] = Array(repeating: false, count: 6)
@@ -34,7 +23,7 @@ struct PaipanDetailView: View {
 				
 				DateDisplayView(title: "农历", date: selectedLunarDate)
 				
-				GanZhiView(ganZhiModel: ganZhiModel)
+				GanZhiView(selectedDate: selectedDate)
 				
 				HexagramSectionView(huGua: $huGua, bianGua: $bianGua)
 				
@@ -83,36 +72,57 @@ struct DateDisplayView: View {
 	}
 }
 
+// Model for GanZhi data
+class GanZhiModel: ObservableObject {
+	
+	@Published var nianGanZhi: String = "甲辰"
+	@Published var yueGanZhi: String = "甲辰"
+	@Published var riGanZhi: String = "甲辰"
+	@Published var shiGanZhi: String = "甲辰"
+	@Published var riKongWang: String = "[戌亥空]"
+}
+
 struct GanZhiView: View {
-	@ObservedObject var ganZhiModel: GanZhiModel
+	var selectedDate: Date // 外部传入的日期
+	
+	// 使用公共初始化方法，这样可以在外部控制ganZhiModel的初始化
+	var ganZhiModel = GanZhiModel()
 
 	var body: some View {
 		HStack {
 			VStack {
-				Text("甲")
 				Text(ganZhiModel.nianGanZhi)
 			}
 			Spacer()
 			VStack {
-				Text("康")
 				Text(ganZhiModel.yueGanZhi)
 			}
 			Spacer()
 			VStack {
-				Text("甲")
 				Text(ganZhiModel.riGanZhi)
 			}
 			Spacer()
 			VStack {
-				Text("乙")
 				Text(ganZhiModel.shiGanZhi)
 			}
 			Spacer()
-			Text("[戌亥空]")
+			VStack {
+				Text(ganZhiModel.riKongWang)
+			}
 		}
 		.padding()
+		.onAppear {
+			updateGanZhiModel() // 初始化时更新一次
+		}
+	}
+
+	private func updateGanZhiModel() {
+		// 根据 selectedDate 更新 ganZhiModel 的相关属性
+		print("Update GanZhiModel...")
+		
 	}
 }
+
 
 struct HexagramSectionView: View {
 	@Binding var huGua: [Bool]
