@@ -83,11 +83,19 @@ class GanZhiModel: ObservableObject {
 }
 
 struct GanZhiView: View {
-	var selectedDate: Date // 外部传入的日期
+	private var selectedDate: Date // 外部传入的日期
+	private var ganZhiModel = GanZhiModel()
 	
-	// 使用公共初始化方法，这样可以在外部控制ganZhiModel的初始化
-	var ganZhiModel = GanZhiModel()
-
+	init(selectedDate: Date) {
+		self.selectedDate = selectedDate
+		// 初始化ganZhiModel
+		print("Update GanZhiModel...")
+		ganZhiModel.nianGanZhi = "甲辰"
+		ganZhiModel.yueGanZhi = "乙巳"
+		ganZhiModel.riGanZhi = "甲辰"
+		ganZhiModel.shiGanZhi = "甲辰"
+		ganZhiModel.riKongWang = "[戌亥空]"
+	}
 	var body: some View {
 		HStack {
 			VStack {
@@ -111,15 +119,6 @@ struct GanZhiView: View {
 			}
 		}
 		.padding()
-		.onAppear {
-			updateGanZhiModel() // 初始化时更新一次
-		}
-	}
-
-	private func updateGanZhiModel() {
-		// 根据 selectedDate 更新 ganZhiModel 的相关属性
-		print("Update GanZhiModel...")
-		
 	}
 }
 
