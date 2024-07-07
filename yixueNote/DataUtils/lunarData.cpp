@@ -13,12 +13,12 @@
 #include <cmath>
 #include <map>
 /*
-太阳公转周期，一年时间约365.2425天。
-公历为了对齐公转周期，4年一闰，100年一停闰，400年加一闰。 400年共97闰， （365×400+97）/400 = 365.2425
-农历，一个月相周期为一月，月相周期大约为29.53,   有大小月之分，大月30天，小月29天。
-农历为了对齐公转周期，每19年加7个闰月，
-因为，农历的推算比较复杂， 大多使用查表法进行计算.
-*/
+ 太阳公转周期，一年时间约365.2425天。
+ 公历为了对齐公转周期，4年一闰，100年一停闰，400年加一闰。 400年共97闰， （365×400+97）/400 = 365.2425
+ 农历，一个月相周期为一月，月相周期大约为29.53,   有大小月之分，大月30天，小月29天。
+ 农历为了对齐公转周期，每19年加7个闰月，
+ 因为，农历的推算比较复杂， 大多使用查表法进行计算.
+ */
 
 namespace baseUtils {
 /** 农历查询表
@@ -184,7 +184,7 @@ lunarData::lunarData(){
 lunarData::~lunarData(){
 	
 }
-		   
+
 /**
  * @brief 返回农历y年一整年的总天数
  * @param y Year
@@ -382,14 +382,14 @@ std::string lunarData::getAnimal(int y) {
 
 /**
  * @brief 计算开始时间到结束时间的天数
- * 
+ *
  * @param start_y 开始年
  * @param start_m 开始月
  * @param start_d 开始日
  * @param y 结束年
  * @param m 结束月
  * @param d 结束日
- * @return int 
+ * @return int
  */
 int lunarData::getOffsetDays(int start_y, int start_m, int start_d, int y, int m, int d){
 	// 构造开始时间
@@ -415,31 +415,30 @@ int lunarData::getOffsetDays(int start_y, int start_m, int start_d, int y, int m
 
 // 获取时辰
 int lunarData::getShiChen(int hour, int minute) {
-//	printf("hour:%d, minute:%d\n", hour, minute);
-
+	//	printf("hour:%d, minute:%d\n", hour, minute);
+	
 	int currentTime = static_cast<int>((hour + 1) / 2); // 每个时辰对应的时间戳
 	if (currentTime == 12) currentTime = 0;
-
-//	printf("currentTime:%d\n", currentTime);
+	
+	//	printf("currentTime:%d\n", currentTime);
 	return currentTime;
 }
 
 /**
- * @brief 传入阳历年月日获得详细的公历、农历object信息 <=>JSON
+ * @brief 传入阳历年月日获得详细的公历、农历object信息
  * @param y  solar year
  * @param m  solar month
- * @param d  solar day  
+ * @param d  solar day
  */
-bool lunarData::updataSolar2lunar(int y, int m, int d, int hour, int minute) { 
-	//参数区间1900.1.31~2100.12.31 
-//	m_data.reset();
-	
+bool lunarData::updataSolar2lunar(int y, int m, int d, int hour, int minute) {
+	//参数区间1900.1.31~2100.12.31
+
 	//年份限定、上限
 	if(y<1900 || y>2100) {
 		printf("年份超出范围(1900-2100)");
 		return false;// undefined转换为数字变为NaN
 	}
-
+	
 	//公历传参最下限
 	if(y==1900&&m==1&&d<31) {
 		printf("日期超出范围(1900.1.31)");
@@ -496,7 +495,7 @@ bool lunarData::updataSolar2lunar(int y, int m, int d, int hour, int minute) {
 	int lMonth = i;
 	//农历日
 	int lDay = offset + 1;
-
+	
 	//天干地支处理
 	std::string gzYear = toGanZhiYear(lYear);
 	
@@ -509,18 +508,18 @@ bool lunarData::updataSolar2lunar(int y, int m, int d, int hour, int minute) {
 	if(d>=firstNode) {
 		gzMonth  = toGanZhi((y-1900)*12+m+12);
 	}
-
+	
 	//日柱 当月一日与 1900/2/20 相差天数
 	int dayCyclical = getOffsetDays(1900, 2, 20, y, m, d);
 	std::string gzDay = toGanZhi(dayCyclical);
-
+	
 	//生肖
 	std::string Animal = getAnimal(y);
 	// 中国月
 	std::string IMonthCn = isLeap ? "闰" + nStr3[lMonth-1] + "\u6708" : "";//月
 	// 中国日
 	std::string IDayCn = toChinaDay(lDay);
-
+	
 	//传入的日期的节气与否
 	bool isTerm = false;
 	std::string Term;
@@ -540,7 +539,7 @@ bool lunarData::updataSolar2lunar(int y, int m, int d, int hour, int minute) {
 		nWeek = 7;
 	}
 	std::string cWeek = nStr1[nWeek];
-
+	
 	//是否今天
 	bool isToday = false;
 	time_t now = time(nullptr);
@@ -552,65 +551,60 @@ bool lunarData::updataSolar2lunar(int y, int m, int d, int hour, int minute) {
 	} else {
 		isToday = false;
 	}
-
-//	// 更新m_data所有的参数
-//	m_data.cYear = y;
-//	m_data.cMonth = m;
-//	m_data.cDay = d;
-//	m_data.cHour = hour;
-//	m_data.cMinute = minute;
-//
-//	m_data.lYear = lYear;
-//	m_data.lMonth = lMonth;
-//	m_data.lDay = lDay;
-//
-//	m_data.gzYear = gzYear;
-//	m_data.gzMonth = gzMonth;
-//	m_data.gzDay = gzDay;
-//
-//	m_data.Animal = Animal;
-//	m_data.IMonthCn = IMonthCn;
-//	m_data.IDayCn = IDayCn;
-//
-//	m_data.isLeap = isLeap;
-//	m_data.leap = leap;
-//
-//	m_data.isTerm = isTerm;
-//	m_data.Term = Term;
-//
-//	m_data.cWeek = cWeek;
-//	m_data.nWeek = nWeek;
-//
-//	m_data.isToday = isToday;
-
-//	printf("公历:%d年%d月%d日\n", y, m, d);
-//	printf("农历:%d年%d月%d日\n", lYear, lMonth, lDay);
-//	printf("农历:%s%s%s\n", (isLeap?"闰":""), nStr3[lMonth-1].c_str(), "\u6708");
-//	printf("干支:%s年 %s月 %s日\n", gzYear.c_str(), gzMonth.c_str(), gzDay.c_str());
-//	printf("生肖:%s\n", Animal.c_str());
-//	printf("节气:%s\n", isTerm?Term.c_str():"");
-//	printf("周:%s\n", cWeek.c_str());
-//	printf("今天:%s\n", isToday?"是":"否");
-
-
+	
+	//	// 更新m_data所有的参数
+	//	m_data.cYear = y;
+	//	m_data.cMonth = m;
+	//	m_data.cDay = d;
+	//	m_data.cHour = hour;
+	//	m_data.cMinute = minute;
+	//
+	//	m_data.lYear = lYear;
+	//	m_data.lMonth = lMonth;
+	//	m_data.lDay = lDay;
+	//
+	//	m_data.gzYear = gzYear;
+	//	m_data.gzMonth = gzMonth;
+	//	m_data.gzDay = gzDay;
+	//
+	//	m_data.Animal = Animal;
+	//	m_data.IMonthCn = IMonthCn;
+	//	m_data.IDayCn = IDayCn;
+	//
+	//	m_data.isLeap = isLeap;
+	//	m_data.leap = leap;
+	//
+	//	m_data.isTerm = isTerm;
+	//	m_data.Term = Term;
+	//
+	//	m_data.cWeek = cWeek;
+	//	m_data.nWeek = nWeek;
+	//
+	//	m_data.isToday = isToday;
+	
+	//	printf("公历:%d年%d月%d日\n", y, m, d);
+	//	printf("农历:%d年%d月%d日\n", lYear, lMonth, lDay);
+	//	printf("农历:%s%s%s\n", (isLeap?"闰":""), nStr3[lMonth-1].c_str(), "\u6708");
+	//	printf("干支:%s年 %s月 %s日\n", gzYear.c_str(), gzMonth.c_str(), gzDay.c_str());
+	//	printf("生肖:%s\n", Animal.c_str());
+	//	printf("节气:%s\n", isTerm?Term.c_str():"");
+	//	printf("周:%s\n", cWeek.c_str());
+	//	printf("今天:%s\n", isToday?"是":"否");
+	
+	
 	return true;
 }
 
 
-/// 获取农历时间
-/// @param y 年
-/// @param m 月
-/// @param d 日
-/// @param hour 时
-/// @param minute 分
+#pragma mark -获取农历时间
 const char* lunarData::getLunarData(int y, int m, int d, int hour, int minute){
-//	printf("公历:%d年%d月%d日\n", y, m, d);
+	//	printf("公历:%d年%d月%d日\n", y, m, d);
 	//年份限定、上限
 	if(y<1900 || y>2100) {
 		printf("年份超出范围(1900-2100)");
 		return "";// undefined转换为数字变为NaN
 	}
-
+	
 	//公历传参最下限
 	if(y==1900&&m==1&&d<31) {
 		printf("日期超出范围(1900.1.31)");
@@ -634,8 +628,8 @@ const char* lunarData::getLunarData(int y, int m, int d, int hour, int minute){
 	//农历年
 	int lYear = i;
 	int leap = leapMonth(i); //闰哪个月
-	bool isLeap = false; 
-
+	bool isLeap = false;
+	
 	//效验闰月
 	for(i=1; i<13 && offset>0; i++) {
 		//闰月
@@ -689,11 +683,279 @@ const char* lunarData::getLunarData(int y, int m, int d, int hour, int minute){
 	// 构造农历时间字符串
 	sprintf(lunarBuffer, "%s", str.c_str());
 	
-//	printf("%s\n", lunarBuffer); // 输出农历时间
+	//	printf("%s\n", lunarBuffer); // 输出农历时间
 	
 	// 返回动态分配的内存地址，注意需要在调用者处理后释放
 	return lunarBuffer;
 	
+}
+
+std::string getFirstChineseCharacter(const std::string& input) {
+    if (input.empty()) return "";
+
+    // 假设中文字符是UTF-8编码，且占用3个或更多字节
+    // 检查第一个字节的高位，以确定字符占用的字节数
+    unsigned char firstByte = static_cast<unsigned char>(input[0]);
+    if ((firstByte >> 5) == 0b110) { // 2字节字符
+        return input.substr(0, 2);
+    } else if ((firstByte >> 4) == 0b1110) { // 3字节字符
+        return input.substr(0, 3);
+    } else if ((firstByte >> 3) == 0b11110) { // 4字节字符
+        return input.substr(0, 4);
+    }
+
+    // 如果第一个字节不是中文字符的起始字节，返回空字符串
+    return "";
+}
+
+#pragma mark -获取天干地支
+const char* lunarData::getSiGangGanZhi(int y, int m, int d, int hour, int minute){
+	//参数区间1900.1.31~2100.12.31
+
+	//年份限定、上限
+	if(y<1900 || y>2100) {
+		printf("年份超出范围(1900-2100)");
+		return "";// undefined转换为数字变为NaN
+	}
+	
+	//公历传参最下限
+	if(y==1900&&m==1&&d<31) {
+		printf("日期超出范围(1900.1.31)");
+		return "";
+	}
+	
+	int i, temp=0;
+	
+	// y年m月d日距离1900.1.31多少时间
+	int offsetDay = getOffsetDays(1900, 1, 31, y, m, d);
+	int offset = offsetDay;
+	
+	for(i=1900; i<2101 && offset>0; i++) {
+		temp = lYearDays(i);
+		offset -= temp;
+	}
+	if(offset<0) {
+		offset+=temp; i--;
+	}
+	
+	//农历年
+	int lYear = i;
+	int leap = leapMonth(i); //闰哪个月
+	bool isLeap = false;
+	
+	//效验闰月
+	for(i=1; i<13 && offset>0; i++) {
+		//闰月
+		if(leap>0 && i==(leap+1) && isLeap==false){
+			--i;
+			isLeap = true; temp = leapDays(lYear); //计算农历闰月天数
+		}
+		else{
+			temp = monthDays(lYear, i);//计算农历普通月天数
+		}
+		//解除闰月
+		if(isLeap==true && i==(leap+1)) { isLeap = false; }
+		offset -= temp;
+	}
+	// 闰月导致数组下标重叠取反
+	if(offset==0 && leap>0 && i==leap+1)
+	{
+		if(isLeap){
+			isLeap = false;
+		}else{
+			isLeap = true; --i;
+		}
+	}
+	if(offset<0)
+	{
+		offset += temp; --i;
+	}
+	
+	//天干地支处理
+	std::string gzYear = toGanZhiYear(lYear);
+	
+	// 当月的两个节气
+	int firstNode  = getTerm(y,(m*2-1));//返回当月「节」为几日开始
+	
+	// 依据12节气修正干支月
+	std::string gzMonth = toGanZhi((y-1900)*12+m+11);
+	if(d>=firstNode) {
+		gzMonth  = toGanZhi((y-1900)*12+m+12);
+	}
+	
+	//日柱 当月一日与 1900/2/20 相差天数
+	int dayCyclical = getOffsetDays(1900, 2, 20, y, m, d);
+	std::string gzDay = toGanZhi(dayCyclical);
+	
+	// printf("gzDay:%s\n", gzDay.c_str());
+	
+	// 时支
+	int nShiZhi = getShiChen(hour, minute);
+	
+	// 时干 
+	// 先计算日干，取出日干支的第一个中文字符
+	std::string riGanStr = getFirstChineseCharacter(gzDay);
+	// printf("riGanStr:%s\n", riGanStr.c_str());
+	
+	// 再计算子时对应的天干
+	/*
+	如果日干为“甲己”，则子时干支为“甲子”；
+	如果日干为“乙庚”，则子时干支为“丙子”；
+	如果日干为“丙辛”，则子时干支为“戊子”；
+	如果日干为“丁壬”，则子时干支为“庚子”；
+	如果日干为“戊癸”，则子时干支为“壬子”。
+	*/
+	int nZiGan = 0;
+	if (riGanStr == "甲" || riGanStr == "己") {
+		nZiGan = 0;
+	} else if (riGanStr == "乙" || riGanStr == "庚") {
+		nZiGan = 2;
+	} else if (riGanStr == "丙" || riGanStr == "辛") {
+		nZiGan = 4;
+	} else if (riGanStr == "丁" || riGanStr == "壬") {
+		nZiGan = 6;
+	} else if (riGanStr == "戊" || riGanStr == "癸") {
+		nZiGan = 8;
+	} else {
+		printf("error riGanStr:%s\n", riGanStr.c_str());
+	}
+	printf("nZiGan:%d\n", nZiGan);
+	printf("nShiZhi:%d\n", nShiZhi);
+	
+	// 计算时干
+	int nShiGan = nZiGan + nShiZhi;
+	if (nShiGan >= 10) {
+		nShiGan -= 10;
+	}
+	std::string gzShi = Gan[nShiGan] + Zhi[nShiZhi];
+	// 返回
+	std::string str = gzYear + " " + gzMonth + " " + gzDay + " " + gzShi;
+	
+	const int bufferSize = 100;
+	char* buffer = (char*)malloc(bufferSize * sizeof(char));
+	if (buffer == nullptr) {
+		printf("内存分配失败\n");
+		return ""; // 返回空字符串表示错误
+	}
+	
+	// 构造农历时间字符串
+	sprintf(buffer, "%s", str.c_str());
+	
+	//	printf("%s\n", lunarBuffer); // 输出农历时间
+	
+	// 返回动态分配的内存地址，注意需要在调用者处理后释放
+	return buffer;
+
+}
+
+#pragma mark -获取日空亡
+const char* lunarData::getRiKongWang(int y, int m, int d, int hour, int minute){
+	//参数区间1900.1.31~2100.12.31
+
+	//年份限定、上限
+	if(y<1900 || y>2100) {
+		printf("年份超出范围(1900-2100)");
+		return "";// undefined转换为数字变为NaN
+	}
+	
+	//公历传参最下限
+	if(y==1900&&m==1&&d<31) {
+		printf("日期超出范围(1900.1.31)");
+		return "";
+	}
+	
+	int i, temp=0;
+	
+	// y年m月d日距离1900.1.31多少时间
+	int offsetDay = getOffsetDays(1900, 1, 31, y, m, d);
+	int offset = offsetDay;
+	
+	for(i=1900; i<2101 && offset>0; i++) {
+		temp = lYearDays(i);
+		offset -= temp;
+	}
+	if(offset<0) {
+		offset+=temp; i--;
+	}
+	
+	//农历年
+	int lYear = i;
+	int leap = leapMonth(i); //闰哪个月
+	bool isLeap = false;
+	
+	//效验闰月
+	for(i=1; i<13 && offset>0; i++) {
+		//闰月
+		if(leap>0 && i==(leap+1) && isLeap==false){
+			--i;
+			isLeap = true; temp = leapDays(lYear); //计算农历闰月天数
+		}
+		else{
+			temp = monthDays(lYear, i);//计算农历普通月天数
+		}
+		//解除闰月
+		if(isLeap==true && i==(leap+1)) { isLeap = false; }
+		offset -= temp;
+	}
+	// 闰月导致数组下标重叠取反
+	if(offset==0 && leap>0 && i==leap+1)
+	{
+		if(isLeap){
+			isLeap = false;
+		}else{
+			isLeap = true; --i;
+		}
+	}
+	if(offset<0)
+	{
+		offset += temp; --i;
+	}
+	//农历月
+	int lMonth = i;
+	//农历日
+	int lDay = offset + 1;
+	
+	//天干地支处理
+	std::string gzYear = toGanZhiYear(lYear);
+	
+	// 当月的两个节气
+	int firstNode  = getTerm(y,(m*2-1));//返回当月「节」为几日开始
+	int secondNode = getTerm(y,(m*2));//返回当月「节」为几日开始
+	
+	// 依据12节气修正干支月
+	std::string gzMonth = toGanZhi((y-1900)*12+m+11);
+	if(d>=firstNode) {
+		gzMonth  = toGanZhi((y-1900)*12+m+12);
+	}
+	
+	//日柱 当月一日与 1900/2/20 相差天数
+	int dayCyclical = getOffsetDays(1900, 2, 20, y, m, d);
+	std::string gzDay = toGanZhi(dayCyclical);
+	
+	// 时辰
+	int nShiChen = getShiChen(hour, minute);
+	std::string gzShi = Zhi[nShiChen] + "时";
+	
+	// 时干
+	
+	
+	// 返回
+	std::string str = gzYear + " " + gzMonth + " " + gzDay + " " + gzShi;
+	
+	const int bufferSize = 100;
+	char* buffer = (char*)malloc(bufferSize * sizeof(char));
+	if (buffer == nullptr) {
+		printf("内存分配失败\n");
+		return ""; // 返回空字符串表示错误
+	}
+	
+	// 构造农历时间字符串
+	sprintf(buffer, "%s", str.c_str());
+	
+	//	printf("%s\n", lunarBuffer); // 输出农历时间
+	
+	// 返回动态分配的内存地址，注意需要在调用者处理后释放
+	return buffer;
 }
 
 } //namespace

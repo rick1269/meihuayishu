@@ -75,10 +75,10 @@ struct DateDisplayView: View {
 // Model for GanZhi data
 class GanZhiModel: ObservableObject {
 	
-	@Published var nianGanZhi: String = "甲辰"
-	@Published var yueGanZhi: String = "甲辰"
-	@Published var riGanZhi: String = "甲辰"
-	@Published var shiGanZhi: String = "甲辰"
+	@Published var nianGanZhi: String = "甲子"
+	@Published var yueGanZhi: String = "甲子"
+	@Published var riGanZhi: String = "甲子"
+	@Published var shiGanZhi: String = "甲子"
 	@Published var riKongWang: String = "[戌亥空]"
 }
 
@@ -90,11 +90,21 @@ struct GanZhiView: View {
 		self.selectedDate = selectedDate
 		// 初始化ganZhiModel
 		print("Update GanZhiModel...")
-		ganZhiModel.nianGanZhi = "甲辰"
-		ganZhiModel.yueGanZhi = "乙巳"
-		ganZhiModel.riGanZhi = "甲辰"
-		ganZhiModel.shiGanZhi = "甲辰"
+		
+		// 计算四纲
+		var ganzhiStr = DateUtils.SiGangGanZhi(from: selectedDate)
+		let components = ganzhiStr.split(separator: " ")
+		if components.count == 4 {
+			ganZhiModel.nianGanZhi = String(components[0])
+			ganZhiModel.yueGanZhi = String(components[1])
+			ganZhiModel.riGanZhi = String(components[2])
+			ganZhiModel.shiGanZhi = String(components[3])
+		}
+		
+		// 计算日空亡
 		ganZhiModel.riKongWang = "[戌亥空]"
+		
+		
 	}
 	var body: some View {
 		HStack {

@@ -6,26 +6,46 @@ class DateUtils {
 		formatter.dateFormat = "yyyy年 MM月 dd日 HH:mm"
 		return formatter.string(from: date)
 	}
-
+	
+	// MARK: - 转化农历日期
 	static func lunarDate(from date: Date) -> String {
 		// 获取日期组件
 		let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: date)
 		guard let year = components.year, let month = components.month, let day = components.day, let hour = components.hour, let minute = components.minute else {
 			return "Invalid date"
 		}
-//		print("year: \(year), month: \(month), day: \(day), hour: \(hour), minute: \(minute)")
+		//		print("year: \(year), month: \(month), day: \(day), hour: \(hour), minute: \(minute)")
 		
 		// 调用C++函数获取农历日期
 		guard let lunarDateCStr = getLunarDate(Int32(year), Int32(month), Int32(day), Int32(hour), Int32(minute)) else {
 			return "Conversion failed"
-		} 
+		}
 		defer {
 			free(UnsafeMutablePointer(mutating: lunarDateCStr))
 		}
 		let lunarDateStr = String(cString: lunarDateCStr)
 		
-//		print(" lunarDate : \(lunarDateStr)")
+		//		print(" lunarDate : \(lunarDateStr)")
 		return lunarDateStr
+	}
+	
+	// MARK: - 获取四纲干支
+	static func SiGangGanZhi(from date: Date) -> (String) {
+		// 获取日期组件
+		let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: date)
+		guard let year = components.year, let month = components.month, let day = components.day, let hour = components.hour, let minute = components.minute else {
+			return ("Invalid date")
+		}
+		guard let dateCStr = getSiGangGanZhi(Int32(year), Int32(month), Int32(day), Int32(hour), Int32(minute)) else {
+			return "Conversion failed"
+		}
+		defer {
+			free(UnsafeMutablePointer(mutating: dateCStr))
+		}
+		let dateStr = String(cString: dateCStr)
+		
+		//		print(" lunarDate : \(lunarDateStr)")
+		return dateStr
 	}
 }
 

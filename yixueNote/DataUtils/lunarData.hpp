@@ -88,11 +88,15 @@ public:
 	lunarData();
 	~lunarData();
 public:
-	// 更新时间信息
-	bool updataSolar2lunar(int y, int m, int d, int hour, int minute);
-
 	// 获取农历时间
 	const char* getLunarData(int y, int m, int d, int hour, int minute);
+	
+	// 获取天干地支
+	const char* getSiGangGanZhi(int y, int m, int d, int hour, int minute);
+	
+	// 获取日空亡
+	const char* getRiKongWang(int y, int m, int d, int hour, int minute);
+	
 private:
 	int lYearDays(int y);
 	int leapMonth(int y);
@@ -107,9 +111,8 @@ private:
 	std::string getAnimal(int y);
 	int getOffsetDays(int start_y, int start_m, int start_d, int y, int m, int d);
 	int getShiChen(int hour, int minute);
-	
-private:
-	
+	// 更新时间信息
+	bool updataSolar2lunar(int y, int m, int d, int hour, int minute);
 };
 } // namespace
 
