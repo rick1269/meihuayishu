@@ -1,5 +1,11 @@
 import SwiftUI
 
+extension UIApplication {
+	func endEditing() {
+		sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+	}
+}
+
 struct PaipanDetailView: View {
 	@Environment(\.presentationMode) var presentationMode
 	
@@ -7,70 +13,66 @@ struct PaipanDetailView: View {
 	var selectedLunarDate: String
 	var zhuGuaXu: Int
 	var dongYao: Int
-	
-	@State private var spacing: CGFloat = 10 // 初始间距
+	 
 	@State private var question: String = ""
 	@State private var feedback: String = ""
-	@State private var screen_width: CGFloat = 100 // 初始间距
-	@State private var screen_height: CGFloat = 100 // 初始间距
+	@State private var screenWidth: CGFloat = ScreenSize.screenWidth
+	@State private var screenHeight: CGFloat = ScreenSize.screenHeight
 	
 	var body: some View {
-		GeometryReader { geometry in
-			ScrollView {
-				VStack(spacing: spacing) {
-					Text("指定排盘")
-						.font(.title)
-						.frame(maxWidth: .infinity, alignment: .center)
-					
-					DateDisplayView(title: "公历", date: DateUtils.dateToString(selectedDate))
-					
-					DateDisplayView(title: "农历", date: selectedLunarDate)
-					
-					GanZhiView(selectedDate: selectedDate)
-					
-					HexagramSectionView(zhuGuaXu: zhuGuaXu, dongYao: dongYao, screen_width: screen_width, screen_height: screen_height)
-					
-					QuestionTextInputView(placeholder: "占问 所问之事", text: $question)
-					
-					FeedbackTextInputView(placeholder: "反馈 断语，分析", text: $feedback)
-					
+		ScrollView {
+			VStack(spacing: screenHeight * 0.004) {
+				Text("指定排盘")
+					.font(.title)
+					.frame(maxWidth: .infinity, alignment: .center)
+				
+				DateDisplayView(title: "公历", date: DateUtils.dateToString(selectedDate))
+				
+				DateDisplayView(title: "农历", date: selectedLunarDate)
+				
+				GanZhiView(selectedDate: selectedDate)
+				
+				HexagramSectionView(zhuGuaXu: zhuGuaXu, dongYao: dongYao, screenWidth: screenWidth, screenHeight: screenHeight)
+				
+				QuestionTextInputView(placeholder: "占问 所问之事", text: $question)
+				
+				FeedbackTextInputView(placeholder: "反馈 断语，分析", text: $feedback)
+				
+				Spacer()
+				
+				HStack {
 					Spacer()
-					
-					HStack {
-						Spacer()
-						Button(action: {
-							// Save to cloud action
-						}) {
-							Image(systemName: "plus")
-								.resizable()
-								.frame(width: 50, height: 50)
-								.foregroundColor(.green)
-								.background(Color.white)
-								.clipShape(Circle())
-								.shadow(radius: 5)
-						}
+					Button(action: {
+						// Save to cloud action
+					}) {
+						Image(systemName: "plus")
+							.resizable()
+							.frame(width: 50, height: 50)
+							.foregroundColor(.green)
+							.background(Color.white)
+							.clipShape(Circle())
+							.shadow(radius: 5)
 					}
-					.padding()
 				}
 				.padding()
-				.onAppear() {
-					screen_width = geometry.size.width
-					screen_height = geometry.size.height
-				}
-				.onChange(of: geometry.size.height) { new_height in
-					if(new_height > 500){
-						spacing = 10
-					}else{
-						spacing = 5
-					}
-				}
 			}
+			.padding()
 		}
-		.onAppear {
-			// Fetch or initialize ganZhiModel data here if needed
+		.onTapGesture {
+			UIApplication.shared.endEditing()
+		}
+		.onAppear() {
+			screenWidth = ScreenSize.screenWidth
+			screenHeight = ScreenSize.screenHeight
 		}
 	}
 }
+
+struct ScreenSize {
+	static let screenWidth = UIScreen.main.bounds.size.width
+	static let screenHeight = UIScreen.main.bounds.size.height
+}
+
 
 struct DateDisplayView: View {
 	var title: String
@@ -146,27 +148,27 @@ struct GanZhiView: View {
 struct HexagramSectionView: View {
 	var zhuGuaXu: Int
 	var dongYao: Int
-	var screen_width: CGFloat
-	var screen_height: CGFloat
+	var screenWidth: CGFloat
+	var screenHeight: CGFloat
 	
-	init(zhuGuaXu: Int, dongYao: Int, screen_width: CGFloat, screen_height: CGFloat) {
+	init(zhuGuaXu: Int, dongYao: Int, screenWidth: CGFloat, screenHeight: CGFloat) {
 		self.zhuGuaXu = zhuGuaXu
 		self.dongYao = dongYao
-		self.screen_width = screen_width
-		self.screen_height = screen_height
+		self.screenWidth = screenWidth
+		self.screenHeight = screenHeight
 	}
 	
 	var body: some View {
 		
 		HStack() {
 			Spacer()
-			ZhuGuaHexagramView(zhuGuaXu: zhuGuaXu, dongYao: dongYao, screen_width: screen_width, screen_height: screen_height)
+			ZhuGuaHexagramView(zhuGuaXu: zhuGuaXu, dongYao: dongYao, screenWidth: screenWidth, screenHeight: screenHeight)
 			Spacer()
-			HuGuaHexagramView(zhuGuaXu: zhuGuaXu, dongYao: dongYao, screen_width: screen_width, screen_height: screen_height)
+			HuGuaHexagramView(zhuGuaXu: zhuGuaXu, dongYao: dongYao, screenWidth: screenWidth, screenHeight: screenHeight)
 			Spacer()
 			Spacer()
 			Spacer()
-			BianGuaHexagramView(zhuGuaXu: zhuGuaXu, dongYao: dongYao, screen_width: screen_width, screen_height: screen_height)
+			BianGuaHexagramView(zhuGuaXu: zhuGuaXu, dongYao: dongYao, screenWidth: screenWidth, screenHeight: screenHeight)
 			Spacer()
 		}
 		.padding()
@@ -177,16 +179,16 @@ struct HexagramSectionView: View {
 struct ZhuGuaHexagramView: View {
 	var zhuGuaXu: Int
 	var dongYao: Int
-	var screen_width: CGFloat
-	var screen_height: CGFloat
+	var screenWidth: CGFloat
+	var screenHeight: CGFloat
 	private var Gua: [Bool]
 	private var GuaName: String
 	
-	init(zhuGuaXu: Int, dongYao: Int, screen_width: CGFloat, screen_height: CGFloat) {
+	init(zhuGuaXu: Int, dongYao: Int, screenWidth: CGFloat, screenHeight: CGFloat) {
 		self.zhuGuaXu = zhuGuaXu
 		self.dongYao = dongYao
-		self.screen_width = screen_width
-		self.screen_height = screen_height
+		self.screenWidth = screenWidth
+		self.screenHeight = screenHeight
 		self.Gua = [Bool](repeating: false, count: 6)
 		self.GuaName = ""
 		
@@ -228,15 +230,15 @@ struct ZhuGuaHexagramView: View {
 						VStack{
 							Rectangle()
 								.fill(Color.black)
-								.frame(height: screen_width * 0.022)
-								.frame(width: screen_width * 0.22)
+								.frame(height: screenWidth * 0.022)
+								.frame(width: screenWidth * 0.22)
 								.overlay(
 									!self.Gua[index] ? AnyView(
 										HStack {
 											Spacer()
 											Rectangle()
 												.fill(Color.white)
-												.frame(width: screen_width * 0.03)
+												.frame(width: screenWidth * 0.03)
 											Spacer()
 										}
 									) : AnyView(EmptyView())
@@ -246,7 +248,7 @@ struct ZhuGuaHexagramView: View {
 						VStack{
 							Image(systemName: "circle")
 								.foregroundColor(dongYao == index ? .red : .white)
-								.font(.system(size: screen_width * 0.022))
+								.font(.system(size: screenWidth * 0.022))
 						}
 					}
 					Spacer()
@@ -262,16 +264,16 @@ struct ZhuGuaHexagramView: View {
 struct HuGuaHexagramView: View {
 	var zhuGuaXu: Int
 	var dongYao: Int
-	var screen_width: CGFloat
-	var screen_height: CGFloat
+	var screenWidth: CGFloat
+	var screenHeight: CGFloat
 	private var Gua: [Bool]
 	private var GuaName: String
 	
-	init(zhuGuaXu: Int, dongYao: Int, screen_width: CGFloat, screen_height: CGFloat) {
+	init(zhuGuaXu: Int, dongYao: Int, screenWidth: CGFloat, screenHeight: CGFloat) {
 		self.zhuGuaXu = zhuGuaXu
 		self.dongYao = dongYao
-		self.screen_width = screen_width
-		self.screen_height = screen_height
+		self.screenWidth = screenWidth
+		self.screenHeight = screenHeight
 		self.Gua = [Bool](repeating: false, count: 6)
 		self.GuaName = ""
 		
@@ -318,15 +320,15 @@ struct HuGuaHexagramView: View {
 					HStack {
 						Rectangle()
 							.fill(Color.black)
-							.frame(height: screen_width * 0.022)
-							.frame(width:screen_width * 0.22)
+							.frame(height: screenWidth * 0.022)
+							.frame(width:screenWidth * 0.22)
 							.overlay(
 								!self.Gua[index] ? AnyView(
 									HStack {
 										Spacer()
 										Rectangle()
 											.fill(Color.white)
-											.frame(width: screen_width * 0.03)
+											.frame(width: screenWidth * 0.03)
 										Spacer()
 									}
 								) : AnyView(EmptyView())
@@ -345,16 +347,16 @@ struct HuGuaHexagramView: View {
 struct BianGuaHexagramView: View {
 	var zhuGuaXu: Int
 	var dongYao: Int
-	var screen_width: CGFloat
-	var screen_height: CGFloat
+	var screenWidth: CGFloat
+	var screenHeight: CGFloat
 	private var Gua: [Bool]
 	private var GuaName: String
 	
-	init(zhuGuaXu: Int, dongYao: Int, screen_width: CGFloat, screen_height: CGFloat) {
+	init(zhuGuaXu: Int, dongYao: Int, screenWidth: CGFloat, screenHeight: CGFloat) {
 		self.zhuGuaXu = zhuGuaXu
 		self.dongYao = dongYao
-		self.screen_width = screen_width
-		self.screen_height = screen_height
+		self.screenWidth = screenWidth
+		self.screenHeight = screenHeight
 		self.Gua = [Bool](repeating: false, count: 6)
 		self.GuaName = ""
 		
@@ -396,15 +398,15 @@ struct BianGuaHexagramView: View {
 					HStack {
 						Rectangle()
 							.fill(Color.black)
-							.frame(height: screen_width * 0.022)
-							.frame(width: screen_width * 0.22)
+							.frame(height: screenWidth * 0.022)
+							.frame(width: screenWidth * 0.22)
 							.overlay(
 								!self.Gua[index] ? AnyView(
 									HStack {
 										Spacer()
 										Rectangle()
 											.fill(Color.white)
-											.frame(width: screen_width * 0.03)
+											.frame(width: screenWidth * 0.03)
 										Spacer()
 									}
 								) : AnyView(EmptyView())
