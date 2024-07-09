@@ -1,11 +1,5 @@
 import SwiftUI
 
-extension UIApplication {
-	func endEditing() {
-		sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-	}
-}
-
 struct PaipanDetailView: View {
 	@Environment(\.presentationMode) var presentationMode
 	
@@ -18,6 +12,8 @@ struct PaipanDetailView: View {
 	@State private var feedback: String = ""
 	@State private var screenWidth: CGFloat = ScreenSize.screenWidth
 	@State private var screenHeight: CGFloat = ScreenSize.screenHeight
+	@State private var showUnfoldButton = false
+
 	
 	var body: some View {
 		ScrollView {
@@ -42,13 +38,46 @@ struct PaipanDetailView: View {
 				
 				HStack {
 					Spacer()
+					if showUnfoldButton {
+						// Save button
+						Button(action: {
+							// Implement save functionality
+							print("Saving to database")
+						}) {
+							Text("保存")
+								.padding()
+								.foregroundColor(.white)
+								.background(Color.green)
+								.cornerRadius(20)
+								.shadow(radius: 5)
+								.transition(.move(edge: .trailing))
+						}
+						
+						// Share button
+						Button(action: {
+							// Implement share functionality
+							print("Sharing")
+						}) {
+							Text("分享")
+								.padding()
+								.foregroundColor(.white)
+								.background(Color.blue)
+								.cornerRadius(20)
+								.shadow(radius: 5)
+								.transition(.move(edge: .trailing))
+						}
+					}
+					
+					// Plus button to toggle showUnfoldButton
 					Button(action: {
-						// Save to cloud action
+						withAnimation {
+							showUnfoldButton.toggle()
+						}
 					}) {
-						Image(systemName: "plus")
+						Image(systemName: showUnfoldButton ? "minus" : "plus")
 							.resizable()
 							.frame(width: 50, height: 50)
-							.foregroundColor(.green)
+							.foregroundColor(showUnfoldButton ? .white : .green)
 							.background(Color.white)
 							.clipShape(Circle())
 							.shadow(radius: 5)
@@ -454,6 +483,12 @@ struct FeedbackTextInputView: View {
 			
 			Spacer()
 		}
+	}
+}
+
+extension UIApplication {
+	func endEditing() {
+		sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
 	}
 }
 
