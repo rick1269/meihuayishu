@@ -152,7 +152,6 @@ struct HexagramSectionView: View {
 	
 	private var zhuGua: [Bool]
 	private var huGua: [Bool]
-	private var bianGua: [Bool]
 	
 	init(zhuGuaXu: Int, dongYao: Int, screen_width: CGFloat, screen_height: CGFloat) {
 		self.zhuGuaXu = zhuGuaXu
@@ -161,7 +160,7 @@ struct HexagramSectionView: View {
 		self.screen_height = screen_height
 		self.zhuGua = [Bool](repeating: false, count: 6)
 		self.huGua = [Bool](repeating: false, count: 6)
-		self.bianGua = [Bool](repeating: false, count: 6)
+		
 		
 		if let zhuGuaYinYangYaoCStr = getGuaYinYangYao(Int32(zhuGuaXu)) {
 			let binaryString = String(cString: zhuGuaYinYangYaoCStr)
@@ -182,8 +181,8 @@ struct HexagramSectionView: View {
 		}
 		
 		// 根据动爻计算变卦
-		self.bianGua = zhuGua
-		self.bianGua[dongYao] = !self.bianGua[dongYao]
+		//		self.bianGua = zhuGua
+		//		self.bianGua[dongYao] = !self.bianGua[dongYao]
 	}
 	
 	var body: some View {
@@ -196,7 +195,7 @@ struct HexagramSectionView: View {
 			Spacer()
 			Spacer()
 			Spacer()
-			BianGuaHexagramView(Gua: bianGua, screen_width: screen_width, screen_height: screen_height)
+			BianGuaHexagramView(zhuGuaXu: zhuGuaXu, dongYao: dongYao, screen_width: screen_width, screen_height: screen_height)
 			Spacer()
 		}
 		.padding()
@@ -294,10 +293,48 @@ struct HuGuaHexagramView: View {
 }
 
 struct BianGuaHexagramView: View {
-	var Gua: [Bool]
+	var zhuGuaXu: Int
+	var dongYao: Int
 	var screen_width: CGFloat
 	var screen_height: CGFloat
+	private var Gua: [Bool]
+	private var GuaName: String
 	
+	init(zhuGuaXu: Int, dongYao: Int, screen_width: CGFloat, screen_height: CGFloat) {
+		self.zhuGuaXu = zhuGuaXu
+		self.dongYao = dongYao
+		self.screen_width = screen_width
+		self.screen_height = screen_height
+		self.Gua = [Bool](repeating: false, count: 6)
+		self.GuaName = ""
+		
+		if let yinYangYaoCStr = getGuaYinYangYao(Int32(zhuGuaXu)) {
+			let binaryString = String(cString: yinYangYaoCStr)
+			for (index, char) in binaryString.enumerated() {
+				Gua[index] = char == "1" ? true : false
+			}
+		} else {
+			print("Failed to get valid C string")
+			Gua = [Bool](repeating: true, count: 6)
+		}
+		// 根据动爻计算变卦
+		Gua[dongYao] = !Gua[dongYao]
+		
+		// 计算卦名
+		let binaryString = Gua.map { $0 ? "1" : "0" }.joined()
+		if let guaXu = Int(binaryString, radix: 2) {
+			if let guaNameCStr = getGuaName(Int32(guaXu)) {
+				GuaName = String(cString: guaNameCStr)
+			} else {
+				print("Failed to get valid C string")
+				GuaName = ""
+			}
+		} else {
+			print("Failed to convert binary string to integer")
+			GuaName = ""
+		}
+		
+	}
 	var body: some View {
 		VStack(){
 			HStack() {
@@ -328,7 +365,7 @@ struct BianGuaHexagramView: View {
 				}
 			}
 			HStack() {
-				Text("雷地豫")
+				Text(GuaName)
 			}
 		}
 	}
@@ -337,7 +374,7 @@ struct BianGuaHexagramView: View {
 struct TextInputView: View {
 	var placeholder: String
 	@Binding var text: String
-
+	
 	var body: some View {
 		HStack(){
 			TextField(placeholder, text: $text)
