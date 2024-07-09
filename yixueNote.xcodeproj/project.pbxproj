@@ -13,6 +13,8 @@
 		0925692A2C307D5900B23673 /* UtilsHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092569282C307D5900B23673 /* UtilsHelper.cpp */; };
 		092569302C31A7A200B23673 /* lunarData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0925692E2C31A7A200B23673 /* lunarData.cpp */; };
 		09B8B4612C3BAB1B00DA18AF /* GuaData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09B8B45F2C3BAB1B00DA18AF /* GuaData.cpp */; };
+		09B8B46B2C3DB61900DA18AF /* GuaExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B8B46A2C3DB61900DA18AF /* GuaExampleView.swift */; };
+		09B8B46D2C3DB7CB00DA18AF /* MyProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B8B46C2C3DB7CB00DA18AF /* MyProfileView.swift */; };
 		09C7785A2C2F313400276648 /* yixueNoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C778592C2F313400276648 /* yixueNoteApp.swift */; };
 		09C7785C2C2F313400276648 /* FirstPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C7785B2C2F313400276648 /* FirstPageView.swift */; };
 		09C7785E2C2F313500276648 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09C7785D2C2F313500276648 /* Assets.xcassets */; };
@@ -30,6 +32,9 @@
 		0925692F2C31A7A200B23673 /* lunarData.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = lunarData.hpp; sourceTree = "<group>"; };
 		09B8B45F2C3BAB1B00DA18AF /* GuaData.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GuaData.cpp; sourceTree = "<group>"; };
 		09B8B4602C3BAB1B00DA18AF /* GuaData.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GuaData.hpp; sourceTree = "<group>"; };
+		09B8B46A2C3DB61900DA18AF /* GuaExampleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuaExampleView.swift; sourceTree = "<group>"; };
+		09B8B46C2C3DB7CB00DA18AF /* MyProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileView.swift; sourceTree = "<group>"; };
+		09B8B46E2C3DB91400DA18AF /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		09C778562C2F313400276648 /* yixueNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yixueNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09C778592C2F313400276648 /* yixueNoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = yixueNoteApp.swift; sourceTree = "<group>"; };
 		09C7785B2C2F313400276648 /* FirstPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPageView.swift; sourceTree = "<group>"; };
@@ -53,6 +58,7 @@
 			children = (
 				092569202C3056C000B23673 /* MeihuayishuPaipan.swift */,
 				092569222C3065E700B23673 /* PaipanDetailView.swift */,
+				09B8B46A2C3DB61900DA18AF /* GuaExampleView.swift */,
 			);
 			path = meihuayishu;
 			sourceTree = "<group>";
@@ -89,6 +95,7 @@
 		09C7784D2C2F313400276648 = {
 			isa = PBXGroup;
 			children = (
+				09B8B46E2C3DB91400DA18AF /* README */,
 				09C778582C2F313400276648 /* yixueNote */,
 				09C778572C2F313400276648 /* Products */,
 			);
@@ -111,6 +118,7 @@
 				0925691F2C3056AA00B23673 /* meihuayishu */,
 				09C778592C2F313400276648 /* yixueNoteApp.swift */,
 				09C7785B2C2F313400276648 /* FirstPageView.swift */,
+				09B8B46C2C3DB7CB00DA18AF /* MyProfileView.swift */,
 				09C7785D2C2F313500276648 /* Assets.xcassets */,
 				09C7785F2C2F313500276648 /* Preview Content */,
 			);
@@ -196,10 +204,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09B8B46D2C3DB7CB00DA18AF /* MyProfileView.swift in Sources */,
 				092569302C31A7A200B23673 /* lunarData.cpp in Sources */,
 				092569232C3065E700B23673 /* PaipanDetailView.swift in Sources */,
 				092569212C3056C000B23673 /* MeihuayishuPaipan.swift in Sources */,
 				09B8B4612C3BAB1B00DA18AF /* GuaData.cpp in Sources */,
+				09B8B46B2C3DB61900DA18AF /* GuaExampleView.swift in Sources */,
 				0925692A2C307D5900B23673 /* UtilsHelper.cpp in Sources */,
 				092569262C30762000B23673 /* DateUtils.swift in Sources */,
 				09C7785C2C2F313400276648 /* FirstPageView.swift in Sources */,

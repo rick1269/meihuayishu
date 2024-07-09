@@ -49,7 +49,7 @@ struct  FirstPageView: View {
 						}
 					}
 					Spacer()
-					NavigationLink(destination: Text("我的")) {
+					NavigationLink(destination: MyProfileView()) {
 						VStack {
 							Image(systemName: "person.fill")
 							Text("我的")
