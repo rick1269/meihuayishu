@@ -10,8 +10,9 @@
 		092569212C3056C000B23673 /* MeihuayishuPaipan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092569202C3056C000B23673 /* MeihuayishuPaipan.swift */; };
 		092569232C3065E700B23673 /* PaipanDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092569222C3065E700B23673 /* PaipanDetailView.swift */; };
 		092569262C30762000B23673 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092569252C30762000B23673 /* DateUtils.swift */; };
-		0925692A2C307D5900B23673 /* LunarCalendar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092569282C307D5900B23673 /* LunarCalendar.cpp */; };
+		0925692A2C307D5900B23673 /* UtilsHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 092569282C307D5900B23673 /* UtilsHelper.cpp */; };
 		092569302C31A7A200B23673 /* lunarData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0925692E2C31A7A200B23673 /* lunarData.cpp */; };
+		09B8B4612C3BAB1B00DA18AF /* GuaData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09B8B45F2C3BAB1B00DA18AF /* GuaData.cpp */; };
 		09C7785A2C2F313400276648 /* yixueNoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C778592C2F313400276648 /* yixueNoteApp.swift */; };
 		09C7785C2C2F313400276648 /* FirstPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C7785B2C2F313400276648 /* FirstPageView.swift */; };
 		09C7785E2C2F313500276648 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09C7785D2C2F313500276648 /* Assets.xcassets */; };
@@ -23,10 +24,12 @@
 		092569222C3065E700B23673 /* PaipanDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaipanDetailView.swift; sourceTree = "<group>"; };
 		092569252C30762000B23673 /* DateUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
 		092569272C307D5900B23673 /* yixueNote-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "yixueNote-Bridging-Header.h"; sourceTree = "<group>"; };
-		092569282C307D5900B23673 /* LunarCalendar.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LunarCalendar.cpp; sourceTree = "<group>"; };
-		092569292C307D5900B23673 /* LunarCalendar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LunarCalendar.h; sourceTree = "<group>"; };
+		092569282C307D5900B23673 /* UtilsHelper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UtilsHelper.cpp; sourceTree = "<group>"; };
+		092569292C307D5900B23673 /* UtilsHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UtilsHelper.h; sourceTree = "<group>"; };
 		0925692E2C31A7A200B23673 /* lunarData.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = lunarData.cpp; sourceTree = "<group>"; };
 		0925692F2C31A7A200B23673 /* lunarData.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = lunarData.hpp; sourceTree = "<group>"; };
+		09B8B45F2C3BAB1B00DA18AF /* GuaData.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GuaData.cpp; sourceTree = "<group>"; };
+		09B8B4602C3BAB1B00DA18AF /* GuaData.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GuaData.hpp; sourceTree = "<group>"; };
 		09C778562C2F313400276648 /* yixueNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yixueNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09C778592C2F313400276648 /* yixueNoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = yixueNoteApp.swift; sourceTree = "<group>"; };
 		09C7785B2C2F313400276648 /* FirstPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPageView.swift; sourceTree = "<group>"; };
@@ -48,6 +51,7 @@
 		0925691F2C3056AA00B23673 /* meihuayishu */ = {
 			isa = PBXGroup;
 			children = (
+				092569252C30762000B23673 /* DateUtils.swift */,
 				092569202C3056C000B23673 /* MeihuayishuPaipan.swift */,
 				092569222C3065E700B23673 /* PaipanDetailView.swift */,
 			);
@@ -57,14 +61,29 @@
 		092569242C30759F00B23673 /* DataUtils */ = {
 			isa = PBXGroup;
 			children = (
-				092569252C30762000B23673 /* DateUtils.swift */,
-				092569282C307D5900B23673 /* LunarCalendar.cpp */,
-				092569292C307D5900B23673 /* LunarCalendar.h */,
-				092569272C307D5900B23673 /* yixueNote-Bridging-Header.h */,
 				0925692E2C31A7A200B23673 /* lunarData.cpp */,
 				0925692F2C31A7A200B23673 /* lunarData.hpp */,
 			);
 			path = DataUtils;
+			sourceTree = "<group>";
+		};
+		09B8B45E2C3BAAE100DA18AF /* GuaUtils */ = {
+			isa = PBXGroup;
+			children = (
+				09B8B45F2C3BAB1B00DA18AF /* GuaData.cpp */,
+				09B8B4602C3BAB1B00DA18AF /* GuaData.hpp */,
+			);
+			path = GuaUtils;
+			sourceTree = "<group>";
+		};
+		09B8B4692C3D230E00DA18AF /* bridge */ = {
+			isa = PBXGroup;
+			children = (
+				092569282C307D5900B23673 /* UtilsHelper.cpp */,
+				092569292C307D5900B23673 /* UtilsHelper.h */,
+				092569272C307D5900B23673 /* yixueNote-Bridging-Header.h */,
+			);
+			path = bridge;
 			sourceTree = "<group>";
 		};
 		09C7784D2C2F313400276648 = {
@@ -86,6 +105,8 @@
 		09C778582C2F313400276648 /* yixueNote */ = {
 			isa = PBXGroup;
 			children = (
+				09B8B4692C3D230E00DA18AF /* bridge */,
+				09B8B45E2C3BAAE100DA18AF /* GuaUtils */,
 				092569242C30759F00B23673 /* DataUtils */,
 				0925691F2C3056AA00B23673 /* meihuayishu */,
 				09C778592C2F313400276648 /* yixueNoteApp.swift */,
@@ -178,7 +199,8 @@
 				092569302C31A7A200B23673 /* lunarData.cpp in Sources */,
 				092569232C3065E700B23673 /* PaipanDetailView.swift in Sources */,
 				092569212C3056C000B23673 /* MeihuayishuPaipan.swift in Sources */,
-				0925692A2C307D5900B23673 /* LunarCalendar.cpp in Sources */,
+				09B8B4612C3BAB1B00DA18AF /* GuaData.cpp in Sources */,
+				0925692A2C307D5900B23673 /* UtilsHelper.cpp in Sources */,
 				092569262C30762000B23673 /* DateUtils.swift in Sources */,
 				09C7785C2C2F313400276648 /* FirstPageView.swift in Sources */,
 				09C7785A2C2F313400276648 /* yixueNoteApp.swift in Sources */,
@@ -328,7 +350,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.macdemo.yixueNote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "yixueNote/DataUtils/yixueNote-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "yixueNote/bridge/yixueNote-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -361,7 +383,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.macdemo.yixueNote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "yixueNote/DataUtils/yixueNote-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "yixueNote/bridge/yixueNote-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

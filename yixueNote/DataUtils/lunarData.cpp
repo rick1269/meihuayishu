@@ -552,46 +552,6 @@ bool lunarData::updataSolar2lunar(int y, int m, int d, int hour, int minute) {
 		isToday = false;
 	}
 	
-	//	// 更新m_data所有的参数
-	//	m_data.cYear = y;
-	//	m_data.cMonth = m;
-	//	m_data.cDay = d;
-	//	m_data.cHour = hour;
-	//	m_data.cMinute = minute;
-	//
-	//	m_data.lYear = lYear;
-	//	m_data.lMonth = lMonth;
-	//	m_data.lDay = lDay;
-	//
-	//	m_data.gzYear = gzYear;
-	//	m_data.gzMonth = gzMonth;
-	//	m_data.gzDay = gzDay;
-	//
-	//	m_data.Animal = Animal;
-	//	m_data.IMonthCn = IMonthCn;
-	//	m_data.IDayCn = IDayCn;
-	//
-	//	m_data.isLeap = isLeap;
-	//	m_data.leap = leap;
-	//
-	//	m_data.isTerm = isTerm;
-	//	m_data.Term = Term;
-	//
-	//	m_data.cWeek = cWeek;
-	//	m_data.nWeek = nWeek;
-	//
-	//	m_data.isToday = isToday;
-	
-	//	printf("公历:%d年%d月%d日\n", y, m, d);
-	//	printf("农历:%d年%d月%d日\n", lYear, lMonth, lDay);
-	//	printf("农历:%s%s%s\n", (isLeap?"闰":""), nStr3[lMonth-1].c_str(), "\u6708");
-	//	printf("干支:%s年 %s月 %s日\n", gzYear.c_str(), gzMonth.c_str(), gzDay.c_str());
-	//	printf("生肖:%s\n", Animal.c_str());
-	//	printf("节气:%s\n", isTerm?Term.c_str():"");
-	//	printf("周:%s\n", cWeek.c_str());
-	//	printf("今天:%s\n", isToday?"是":"否");
-	
-	
 	return true;
 }
 

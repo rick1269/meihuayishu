@@ -1,5 +1,5 @@
-#ifndef LUNAR_CALENDAR_H
-#define LUNAR_CALENDAR_H
+#ifndef UTILS_HELPER_H
+#define UTILS_HELPER_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -17,4 +17,4 @@ const char* getRiKongWang(int year, int month, int day, int hour, int minute);
 }
 #endif
 
-#endif // LUNAR_CALENDAR_H
+#endif // UTILS_HELPER_H
