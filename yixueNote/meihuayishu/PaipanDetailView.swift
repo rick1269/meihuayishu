@@ -30,10 +30,9 @@ struct PaipanDetailView: View {
 					
 					HexagramSectionView(zhuGuaXu: zhuGuaXu, dongYao: dongYao, screen_width: screen_width, screen_height: screen_height)
 					
-					TextInputView(placeholder: "占问 所问之事", text: $question)
+					QuestionTextInputView(placeholder: "占问 所问之事", text: $question)
 					
-					TextInputView(placeholder: "反馈 断语，分析", text: $feedback)
-					
+					FeedbackTextInputView(placeholder: "反馈 断语，分析", text: $feedback)
 					
 					Spacer()
 					
@@ -422,19 +421,37 @@ struct BianGuaHexagramView: View {
 	}
 }
 
-struct TextInputView: View {
+struct QuestionTextInputView: View {
 	var placeholder: String
 	@Binding var text: String
 	
 	var body: some View {
-		HStack(){
+		VStack {
 			TextField(placeholder, text: $text)
-				.padding()
-				.background(Color.gray.opacity(0.1))
-				.cornerRadius(10)
-				.padding(.horizontal)
+			.padding()
+			.background(Color.gray.opacity(0.1))
+			.cornerRadius(10)
+			.padding(.horizontal)
+			
+			Spacer()
 		}
-		.padding()
+	}
+}
+
+struct FeedbackTextInputView: View {
+	var placeholder: String
+	@Binding var text: String
+	
+	var body: some View {
+		VStack {
+			TextField(placeholder, text: $text)
+			.padding()
+			.background(Color.gray.opacity(0.1))
+			.cornerRadius(10)
+			.padding(.horizontal)
+			
+			Spacer()
+		}
 	}
 }
 
