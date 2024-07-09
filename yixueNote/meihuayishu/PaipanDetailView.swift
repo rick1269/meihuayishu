@@ -5,11 +5,8 @@ struct PaipanDetailView: View {
 	
 	var selectedDate: Date
 	var selectedLunarDate: String
-	var zhuGua: [Bool]
+	var zhuGuaXu: Int
 	var dongYao: Int
-
-	@State private var huGua: [Bool] = Array(repeating: false, count: 6)
-	@State private var bianGua: [Bool] = Array(repeating: false, count: 6)
 
 	var body: some View {
 		ScrollView {
@@ -25,7 +22,7 @@ struct PaipanDetailView: View {
 				
 				GanZhiView(selectedDate: selectedDate)
 				
-				HexagramSectionView(zhuGua: zhuGua, dongYao: dongYao)
+				HexagramSectionView(zhuGuaXu: zhuGuaXu, dongYao: dongYao)
 							   
 				TextInputView(placeholder: "占问 所问之事", text: .constant(""))
 				
@@ -132,18 +129,36 @@ struct GanZhiView: View {
 }
 
 struct HexagramSectionView: View {
-	var zhuGua: [Bool]
+	var zhuGuaXu: Int
 	var dongYao: Int
+	private var zhuGua: [Bool]
 	private var huGua: [Bool]
 	private var bianGua: [Bool]
 	
-	init(zhuGua: [Bool], dongYao: Int) {
-		self.zhuGua = zhuGua
+	init(zhuGuaXu: Int, dongYao: Int) {
+		self.zhuGuaXu = zhuGuaXu
 		self.dongYao = dongYao
+		self.zhuGua = [Bool](repeating: false, count: 6)
+		self.huGua = [Bool](repeating: false, count: 6)
+		self.bianGua = [Bool](repeating: false, count: 6)
 		
-		// Initialize huGua and bianGua as per zhuGua, huGua should be different
-		self.huGua = zhuGua.map { !$0 }
+		var binaryString = String(zhuGuaXu, radix: 2)
+		binaryString = String(repeating: "0", count: 6 - binaryString.count) + binaryString
+		
+		for (index, char) in binaryString.enumerated() {
+			self.zhuGua[index] = char == "1" ? true : false
+		}
+		
+		// 定义主卦中每个位置对应的互卦位置关系
+		let mapping = [1, 2, 3, 2, 3, 4]
+		
+		for (index, value) in mapping.enumerated() {
+			self.huGua[index] = self.zhuGua[value - 1]
+		}
+		
+		// 根据动爻计算变卦
 		self.bianGua = zhuGua
+		self.bianGua[dongYao] = !self.bianGua[dongYao]
 	}
 	
 	var body: some View {
@@ -192,7 +207,7 @@ struct ZhuGuaHexagramView: View {
 							.frame(height: 6)
 							.frame(width:80)
 							.overlay(
-								self.zhuGua[index] ? AnyView(
+								!self.zhuGua[index] ? AnyView(
 									HStack {
 										Spacer()
 										Rectangle()
@@ -232,7 +247,7 @@ struct HexagramView: View {
 						.frame(height: 6)
 						.frame(width:80)
 						.overlay(
-							self.Gua[index] ? AnyView(
+							!self.Gua[index] ? AnyView(
 								HStack {
 									Spacer()
 									Rectangle()
@@ -267,7 +282,7 @@ struct TextInputView: View {
 
 struct PaipanDetailView_Previews: PreviewProvider {
 	static var previews: some View {
-		PaipanDetailView(selectedDate: Date(), selectedLunarDate: "", zhuGua: [true, true, true, true, true, true], dongYao: 0)
+		PaipanDetailView(selectedDate: Date(), selectedLunarDate: "", zhuGuaXu: 0, dongYao: 0)
 	}
 }
 

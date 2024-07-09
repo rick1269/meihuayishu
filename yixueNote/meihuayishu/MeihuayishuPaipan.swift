@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct MeihuayishuPanSelectionView: View {
-	@State private var zhuGua: [Bool] = Array(repeating: false, count: 6)
+	@State private var zhuGuaXu = 63
 	@State private var dongYao = 0
 	@State private var showPaipanDetail = false
 	@State private var showDatePicker = false
@@ -19,7 +19,7 @@ struct MeihuayishuPanSelectionView: View {
 				DatePickerSection(selectedDate: $selectedDate, selectedLunarDate: $selectedLunarDate, showDatePicker: $showDatePicker)
 
 				// 主卦状态模块
-				ZhuGuaView(zhuGua: $zhuGua, dongYao: $dongYao)
+				ZhuGuaView(zhuGuaXu: $zhuGuaXu, dongYao: $dongYao)
 								
 				Spacer()
 				
@@ -28,7 +28,7 @@ struct MeihuayishuPanSelectionView: View {
 									showPaipanDetail: $showPaipanDetail,
 									selectedDate: selectedDate,
 									selectedLunarDate: selectedLunarDate,
-									zhuGua: zhuGua,
+									zhuGuaXu: zhuGuaXu,
 									dongYao: dongYao
 								)
 			}
@@ -236,8 +236,11 @@ struct CustomDatePicker: View {
 
 /// 主卦视图模块
 struct ZhuGuaView: View {
-	@Binding var zhuGua: [Bool]
+	@Binding var zhuGuaXu: Int
 	@Binding var dongYao: Int
+	
+	@State private var zhuGua: [Bool] = Array(repeating: false, count: 6)
+	
 	let yaoLabels = ["初爻", "二爻", "三爻", "四爻", "五爻", "上爻"]
 	
 	var body: some View {
@@ -253,7 +256,7 @@ struct ZhuGuaView: View {
 							zhuGua[index].toggle()
 						}
 						.overlay(
-							zhuGua[index] ? AnyView(
+							!zhuGua[index] ? AnyView(
 								HStack {
 									Spacer()
 									Rectangle()
@@ -278,7 +281,32 @@ struct ZhuGuaView: View {
 		.background(Color.white)
 		.cornerRadius(10)
 		.shadow(radius: 5)
-		.padding()
+		.onAppear(){
+			// 将zhuGuaXu转化为二进制，低6位转化为string存入数组
+			var binaryString = String(zhuGuaXu, radix: 2)
+			binaryString = String(repeating: "0", count: 6 - binaryString.count) + binaryString
+//			print("ZhuGuaView 二进制字符串: \(binaryString)")
+			
+			for (index, char) in binaryString.enumerated() {
+				zhuGua[index] = char == "1" ? true : false
+			}
+		}
+		.onChange(of: zhuGua){ _ in
+			updateZhuGuaXu()
+		}
+		
+	}
+	
+	// 函数
+	private func updateZhuGuaXu() {
+		var xu = 0
+		for (i, isSelected) in zhuGua.enumerated() {
+			if isSelected {
+				xu += 1 << (5 - i)
+			}
+		}
+		zhuGuaXu = xu
+//		print("Updated zhuGuaXu to \(zhuGuaXu)")
 	}
 }
 
@@ -288,12 +316,12 @@ struct PaipanNavigationLink: View {
 	@Binding var showPaipanDetail: Bool
 	var selectedDate: Date
 	var selectedLunarDate: String
-	var zhuGua: [Bool]
+	var zhuGuaXu: Int
 	var dongYao: Int
 	
 	var body: some View {
 		NavigationLink(
-			destination: PaipanDetailView(selectedDate: selectedDate, selectedLunarDate: selectedLunarDate, zhuGua: zhuGua, dongYao: dongYao),
+			destination: PaipanDetailView(selectedDate: selectedDate, selectedLunarDate: selectedLunarDate, zhuGuaXu: zhuGuaXu, dongYao: dongYao),
 			isActive: $showPaipanDetail
 		) {
 			Button(action: {
