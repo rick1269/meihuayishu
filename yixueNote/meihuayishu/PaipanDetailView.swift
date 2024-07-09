@@ -244,10 +244,9 @@ struct ZhuGuaHexagramView: View {
 						VStack{
 							Image(systemName: "circle")
 								.foregroundColor(dongYao == index ? .red : .white)
-								.font(.system(size: 5))
+								.font(.system(size: screen_width * 0.03))
 						}
 					}
-					Spacer()
 					Spacer()
 				}
 			}
