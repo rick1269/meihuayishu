@@ -226,8 +226,8 @@ struct ZhuGuaHexagramView: View {
 						VStack{
 							Rectangle()
 								.fill(Color.black)
-								.frame(height: 6)
-								.frame(width: screen_width * 0.2)
+								.frame(height: screen_width * 0.022)
+								.frame(width: screen_width * 0.22)
 								.overlay(
 									!self.zhuGua[index] ? AnyView(
 										HStack {
@@ -244,7 +244,7 @@ struct ZhuGuaHexagramView: View {
 						VStack{
 							Image(systemName: "circle")
 								.foregroundColor(dongYao == index ? .red : .white)
-								.font(.system(size: screen_width * 0.03))
+								.font(.system(size: screen_width * 0.022))
 						}
 					}
 					Spacer()
@@ -273,8 +273,8 @@ struct HuGuaHexagramView: View {
 					HStack {
 						Rectangle()
 							.fill(Color.black)
-							.frame(height: 6)
-							.frame(width:screen_width * 0.2)
+							.frame(height: screen_width * 0.022)
+							.frame(width:screen_width * 0.22)
 							.overlay(
 								!self.Gua[index] ? AnyView(
 									HStack {
@@ -287,7 +287,6 @@ struct HuGuaHexagramView: View {
 								) : AnyView(EmptyView())
 							)
 					}
-					Spacer()
 					Spacer()
 				}
 			}
@@ -314,8 +313,8 @@ struct BianGuaHexagramView: View {
 					HStack {
 						Rectangle()
 							.fill(Color.black)
-							.frame(height: 6)
-							.frame(width: screen_width * 0.2)
+							.frame(height: screen_width * 0.022)
+							.frame(width: screen_width * 0.22)
 							.overlay(
 								!self.Gua[index] ? AnyView(
 									HStack {
@@ -329,7 +328,7 @@ struct BianGuaHexagramView: View {
 							)
 					}
 					Spacer()
-					Spacer()
+					
 				}
 			}
 			HStack() {
