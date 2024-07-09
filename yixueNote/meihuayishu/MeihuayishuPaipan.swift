@@ -100,7 +100,7 @@ struct DatePickerSection: View {
 	
 	private func updateLunarDate() {
 		selectedLunarDate = DateUtils.lunarDate(from: selectedDate)
-		print("DatePickerSection 农历日期: \(selectedLunarDate)")
+//		print("DatePickerSection 农历日期: \(selectedLunarDate)")
 	}
 }
 
@@ -282,13 +282,15 @@ struct ZhuGuaView: View {
 		.cornerRadius(10)
 		.shadow(radius: 5)
 		.onAppear(){
-			// 将zhuGuaXu转化为二进制，低6位转化为string存入数组
-			var binaryString = String(zhuGuaXu, radix: 2)
-			binaryString = String(repeating: "0", count: 6 - binaryString.count) + binaryString
-//			print("ZhuGuaView 二进制字符串: \(binaryString)")
-			
-			for (index, char) in binaryString.enumerated() {
-				zhuGua[index] = char == "1" ? true : false
+			if let zhuGuaYinYangYaoCStr = getGuaYinYangYao(Int32(zhuGuaXu)) {
+				var binaryString = String(cString: zhuGuaYinYangYaoCStr)
+//				print("ZhuGuaView 二进制字符串: \(binaryString)")
+				for (index, char) in binaryString.enumerated() {
+					zhuGua[index] = char == "1" ? true : false
+				}
+			} else {
+				print("Failed to get valid C string")
+				zhuGua = [Bool](repeating: true, count: 6)
 			}
 		}
 		.onChange(of: zhuGua){ _ in

@@ -13,6 +13,12 @@ const char* getSiGangGanZhi(int year, int month, int day, int hour, int minute);
 // 获取空亡信息
 const char* getRiKongWang(int year, int month, int day, int hour, int minute);
 
+// 获取卦名字
+const char* getGuaName(int GuaXu);
+
+// 获取卦阴阳爻信息
+const char* getGuaYinYangYao(int GuaXu);
+
 #ifdef __cplusplus
 }
 #endif

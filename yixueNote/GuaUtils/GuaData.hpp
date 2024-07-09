@@ -11,6 +11,8 @@
 #include <array>
 #include <string>
 
+namespace baseUtils {
+
 class GuaData
 {
 public:
@@ -37,4 +39,5 @@ private:
 	};
 };
 
+} // namespace baseUtils
 #endif /* GuaData_hpp */

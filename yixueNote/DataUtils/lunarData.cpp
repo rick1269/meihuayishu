@@ -917,7 +917,7 @@ const char* lunarData::getRiKongWang(int y, int m, int d, int hour, int minute){
 	// 构造农历时间字符串
 	sprintf(buffer, "%s", str.c_str());
 	
-	printf("%s\n", buffer);  // 输出空亡信息
+//	printf("%s\n", buffer);  // 输出空亡信息
 	
 	// 返回动态分配的内存地址，注意需要在调用者处理后释放
 	return buffer;

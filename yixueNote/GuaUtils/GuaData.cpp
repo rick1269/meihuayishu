@@ -7,6 +7,8 @@
 
 #include "GuaData.hpp"
 
+namespace baseUtils {
+
 GuaData::GuaData(/* args */)
 {
 }
@@ -39,6 +41,8 @@ std::string GuaData::getYinYangYao(int guaIndex){
 			yinYangYao = "0" + yinYangYao; // 爻为阴
 		}
 	}
-
+	
 	return yinYangYao;
 }
+
+} // namespace baseUtils
