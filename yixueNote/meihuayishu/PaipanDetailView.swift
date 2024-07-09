@@ -190,17 +190,13 @@ struct HexagramSectionView: View {
 		
 		HStack() {
 			Spacer()
-			VStack {
-				ZhuGuaHexagramView(zhuGua: zhuGua, dongYao: dongYao, screen_width: screen_width, screen_height: screen_height)
-			}
+			ZhuGuaHexagramView(zhuGua: zhuGua, dongYao: dongYao, screen_width: screen_width, screen_height: screen_height)
 			Spacer()
-			VStack {
-				HuGuaHexagramView(Gua: huGua, screen_width: screen_width, screen_height: screen_height)
-			}
+			HuGuaHexagramView(Gua: huGua, screen_width: screen_width, screen_height: screen_height)
 			Spacer()
-			VStack {
-				BianGuaHexagramView(Gua: bianGua, screen_width: screen_width, screen_height: screen_height)
-			}
+			Spacer()
+			Spacer()
+			BianGuaHexagramView(Gua: bianGua, screen_width: screen_width, screen_height: screen_height)
 			Spacer()
 		}
 		.padding()
