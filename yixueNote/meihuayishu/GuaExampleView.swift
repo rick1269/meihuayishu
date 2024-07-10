@@ -24,6 +24,8 @@ struct PaipanHistoryView: View {
 					}
 				}
 			}
+			.navigationBarTitle("卦例笔记")
+			.navigationBarTitleDisplayMode(.inline) // 显示标题
 		}
 	}
 }
@@ -114,7 +116,7 @@ struct GuaExampleView: View {
 					.foregroundColor(.gray)
 					.lineLimit(1)
 					.truncationMode(.tail)
-			} 
+			}
 		}
 	}
 }
