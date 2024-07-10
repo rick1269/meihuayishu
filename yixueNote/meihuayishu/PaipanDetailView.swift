@@ -41,10 +41,10 @@ struct PaipanDetailView: View {
 					if showUnfoldButton {
 						// Save button
 						Button(action: {
-							let record = PaipanRecord(date: selectedDate,
-													  zhuGuaName: "",
-													  huGuaName: "",  // 替换为实际数据
-													  bianGuaName: "",  // 替换为实际数据
+							let record = PaipanRecord(selectedDate: selectedDate,
+													  selectedLunarDate: selectedLunarDate,
+													  zhuGuaXu: zhuGuaXu,
+													  dongYao: dongYao,
 													  question: question,
 													  feedback: feedback)
 							
@@ -505,39 +505,4 @@ struct PaipanDetailView_Previews: PreviewProvider {
 	}
 }
 
-// 记录卦例的信息
-struct PaipanRecord: Codable, Identifiable {
-	var id = UUID()
-	var date: Date
-	var zhuGuaName: String
-	var huGuaName: String
-	var bianGuaName: String
-	var question: String
-	var feedback: String
-}
 
-//实现存储管理
-class HistoryManager {
-	static let shared = HistoryManager()
-	private let key = "paipan_history"
-	
-	func saveRecord(_ record: PaipanRecord) {
-		var records = loadRecords()
-		records.append(record)
-		
-		let encoder = JSONEncoder()
-		if let encoded = try? encoder.encode(records) {
-			UserDefaults.standard.set(encoded, forKey: key)
-		}
-	}
-	
-	func loadRecords() -> [PaipanRecord] {
-		if let data = UserDefaults.standard.data(forKey: key) {
-			let decoder = JSONDecoder()
-			if let decoded = try? decoder.decode([PaipanRecord].self, from: data) {
-				return decoded
-			}
-		}
-		return []
-	}
-}
