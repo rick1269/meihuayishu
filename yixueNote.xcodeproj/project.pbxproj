@@ -15,6 +15,10 @@
 		09B8B4612C3BAB1B00DA18AF /* GuaData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09B8B45F2C3BAB1B00DA18AF /* GuaData.cpp */; };
 		09B8B46B2C3DB61900DA18AF /* GuaExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B8B46A2C3DB61900DA18AF /* GuaExampleView.swift */; };
 		09B8B46D2C3DB7CB00DA18AF /* MyProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B8B46C2C3DB7CB00DA18AF /* MyProfileView.swift */; };
+		09B8B47F2C3F03EB00DA18AF /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 09B8B47D2C3F03EB00DA18AF /* DataModel.xcdatamodeld */; };
+		09B8B4822C3F056700DA18AF /* PaipanRecordModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B8B4802C3F056700DA18AF /* PaipanRecordModel+CoreDataClass.swift */; };
+		09B8B4832C3F056700DA18AF /* PaipanRecordModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B8B4812C3F056700DA18AF /* PaipanRecordModel+CoreDataProperties.swift */; };
+		09B8B4862C3F06A000DA18AF /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B8B4852C3F06A000DA18AF /* PersistenceController.swift */; };
 		09C7785A2C2F313400276648 /* yixueNoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C778592C2F313400276648 /* yixueNoteApp.swift */; };
 		09C7785C2C2F313400276648 /* FirstPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C7785B2C2F313400276648 /* FirstPageView.swift */; };
 		09C7785E2C2F313500276648 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09C7785D2C2F313500276648 /* Assets.xcassets */; };
@@ -35,6 +39,10 @@
 		09B8B46A2C3DB61900DA18AF /* GuaExampleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuaExampleView.swift; sourceTree = "<group>"; };
 		09B8B46C2C3DB7CB00DA18AF /* MyProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileView.swift; sourceTree = "<group>"; };
 		09B8B46E2C3DB91400DA18AF /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		09B8B47E2C3F03EB00DA18AF /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		09B8B4802C3F056700DA18AF /* PaipanRecordModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PaipanRecordModel+CoreDataClass.swift"; path = "yixueNote/PaipanRecordModel+CoreDataClass.swift"; sourceTree = "<group>"; };
+		09B8B4812C3F056700DA18AF /* PaipanRecordModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PaipanRecordModel+CoreDataProperties.swift"; path = "yixueNote/PaipanRecordModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		09B8B4852C3F06A000DA18AF /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		09C778562C2F313400276648 /* yixueNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yixueNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09C778592C2F313400276648 /* yixueNoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = yixueNoteApp.swift; sourceTree = "<group>"; };
 		09C7785B2C2F313400276648 /* FirstPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPageView.swift; sourceTree = "<group>"; };
@@ -92,9 +100,19 @@
 			path = bridge;
 			sourceTree = "<group>";
 		};
+		09B8B4842C3F068600DA18AF /* coreData */ = {
+			isa = PBXGroup;
+			children = (
+				09B8B4852C3F06A000DA18AF /* PersistenceController.swift */,
+			);
+			path = coreData;
+			sourceTree = "<group>";
+		};
 		09C7784D2C2F313400276648 = {
 			isa = PBXGroup;
 			children = (
+				09B8B4802C3F056700DA18AF /* PaipanRecordModel+CoreDataClass.swift */,
+				09B8B4812C3F056700DA18AF /* PaipanRecordModel+CoreDataProperties.swift */,
 				09B8B46E2C3DB91400DA18AF /* README */,
 				09C778582C2F313400276648 /* yixueNote */,
 				09C778572C2F313400276648 /* Products */,
@@ -112,6 +130,7 @@
 		09C778582C2F313400276648 /* yixueNote */ = {
 			isa = PBXGroup;
 			children = (
+				09B8B4842C3F068600DA18AF /* coreData */,
 				09B8B4692C3D230E00DA18AF /* bridge */,
 				09B8B45E2C3BAAE100DA18AF /* GuaUtils */,
 				092569242C30759F00B23673 /* DataUtils */,
@@ -121,6 +140,7 @@
 				09B8B46C2C3DB7CB00DA18AF /* MyProfileView.swift */,
 				09C7785D2C2F313500276648 /* Assets.xcassets */,
 				09C7785F2C2F313500276648 /* Preview Content */,
+				09B8B47D2C3F03EB00DA18AF /* DataModel.xcdatamodeld */,
 			);
 			path = yixueNote;
 			sourceTree = "<group>";
@@ -204,11 +224,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09B8B47F2C3F03EB00DA18AF /* DataModel.xcdatamodeld in Sources */,
+				09B8B4862C3F06A000DA18AF /* PersistenceController.swift in Sources */,
 				09B8B46D2C3DB7CB00DA18AF /* MyProfileView.swift in Sources */,
 				092569302C31A7A200B23673 /* lunarData.cpp in Sources */,
 				092569232C3065E700B23673 /* PaipanDetailView.swift in Sources */,
 				092569212C3056C000B23673 /* MeihuayishuPaipan.swift in Sources */,
 				09B8B4612C3BAB1B00DA18AF /* GuaData.cpp in Sources */,
+				09B8B4822C3F056700DA18AF /* PaipanRecordModel+CoreDataClass.swift in Sources */,
+				09B8B4832C3F056700DA18AF /* PaipanRecordModel+CoreDataProperties.swift in Sources */,
 				09B8B46B2C3DB61900DA18AF /* GuaExampleView.swift in Sources */,
 				0925692A2C307D5900B23673 /* UtilsHelper.cpp in Sources */,
 				092569262C30762000B23673 /* DateUtils.swift in Sources */,
@@ -425,6 +449,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		09B8B47D2C3F03EB00DA18AF /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				09B8B47E2C3F03EB00DA18AF /* DataModel.xcdatamodel */,
+			);
+			currentVersion = 09B8B47E2C3F03EB00DA18AF /* DataModel.xcdatamodel */;
+			name = DataModel.xcdatamodeld;
+			path = /Users/rickqiu/Desktop/Engine/project/ocdemo/meihuayishu/yixueNote/DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 09C7784E2C2F313400276648 /* Project object */;
 }
